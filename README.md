@@ -5,8 +5,8 @@ to us from the beginning and we thought would be nice to try and make a computer
 we had learned with the discipline. As you can see we used a lot of OOP specific concepts to build this
 and hope you can try and have fun with it.
 
-Bruno Costa Lucena de Araújo
-Jorge Alberto Valle Evangelista Filho
+Bruno Costa Lucena de Araújo/
+Jorge Alberto Valle Evangelista Filho/
 Maria Eduarda Silva Tavares
 
 CURRENT STATUS : (UNDER CONSTRUCTION)
