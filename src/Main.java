@@ -34,11 +34,18 @@ public class Main{
         Cavalo cavalo = new Cavalo(COLUNA_A, PRIMEIRA_FILEIRA, BRANCO);
         Cavalo cavalo2 = new Cavalo(COLUNA_B, TERCEIRA_FILEIRA, BRANCO);
         Cavalo cavalo3 = new Cavalo(COLUNA_H, PRIMEIRA_FILEIRA, BRANCO);
-        Cavalo cavalo4 = new Cavalo(COLUNA_H, OITAVA_FILEIRA, BRANCO);
+        Cavalo cavalo4 = new Cavalo(COLUNA_H, SEGUNDA_FILEIRA, BRANCO);
+        Rei rei = new Rei(COLUNA_H, SETIMA_FILEIRA, BRANCO);
 
+        System.out.println("Cavalo1");
         Tabuleiro.analisarCasasLegais(cavalo);
+        System.out.println("Cavalo2");
         Tabuleiro.analisarCasasLegais(cavalo2);
+        System.out.println("Cavalo3");
         Tabuleiro.analisarCasasLegais(cavalo3);
+        System.out.println("Cavalo4");
         Tabuleiro.analisarCasasLegais(cavalo4);
+        System.out.println("Rei");
+        Tabuleiro.analisarCasasLegais(rei);
     }
 }
