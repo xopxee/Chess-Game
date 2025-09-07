@@ -1,51 +1,70 @@
 import Tabuleiro.Tabuleiro;
 import pecas.*;
 
+import java.util.Scanner;
+
 import static Tabuleiro.Tabuleiro.*;
 
 public class Main{
     public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+
         Tabuleiro.criarCasas();
+        Tabuleiro.preencherCasasToString();
+        Tabuleiro.organizar();
+        while(true) {
+            Tabuleiro.imprimir();
+            System.out.println("\n");
 
-        /*
-        Peao peaoPreto = new Peao(COLUNA_D, SETIMA_FILEIRA, PRETO);
-        Peao peaoBranco = new Peao(COLUNA_C, SEGUNDA_FILEIRA, BRANCO);
-        Torre torreBranca = new Torre(COLUNA_A, PRIMEIRA_FILEIRA, BRANCO);
+            System.out.println("Digite a casa de origem: ");
+            String origem = "";
+            while(true){
+                origem = sc.nextLine();
 
-        Tabuleiro.moverPeca(peaoPreto, COLUNA_D, QUINTA_FILEIRA);
-        Tabuleiro.moverPeca(peaoPreto, COLUNA_D, QUARTA_FILEIRA);
-        Tabuleiro.moverPeca(peaoBranco, COLUNA_C, QUARTA_FILEIRA);
+                if(casasToString.contains(origem)){
+                    break;
+                }
+            }
 
-        System.out.println("Movimentos legais do Peão Preto:");
-        Tabuleiro.analisarCasasLegais(peaoPreto);
+            int colorigem = Tabuleiro.parseNotationColuna(origem);
+            int filorigem = Tabuleiro.parseNotationFileira(origem);
 
-        System.out.println(peaoBranco.getJogadaDuasCasas());
-        System.out.println(Tabuleiro.getJogadas());
+            System.out.println("Digite a casa de destino: ");
+            String destino ="";
+            while(true){
+                destino = sc.nextLine();
+                if(casasToString.contains(destino)){
+                    break;
+                }
+            }
 
-        Tabuleiro.moverPeca(torreBranca, COLUNA_B, PRIMEIRA_FILEIRA);
+            int coldestino = Tabuleiro.parseNotationColuna(destino);
+            int fildestino = Tabuleiro.parseNotationFileira(destino);
 
-        System.out.println("Movimentos legais do Peão Preto:");
-        Tabuleiro.analisarCasasLegais(peaoPreto);
+            if(Tabuleiro.getCasa(colorigem, filorigem).getPeca() != null) {
 
-        System.out.println(peaoBranco.getJogadaDuasCasas());
-        System.out.println(Tabuleiro.getJogadas());
-         */
+                if (Tabuleiro.getJogadas() % 2 == 0) {
+                    int corDaPeca = Tabuleiro.getCasa(colorigem, filorigem).getPeca().getCor();
 
-        Cavalo cavalo = new Cavalo(COLUNA_A, PRIMEIRA_FILEIRA, BRANCO);
-        Cavalo cavalo2 = new Cavalo(COLUNA_B, TERCEIRA_FILEIRA, BRANCO);
-        Cavalo cavalo3 = new Cavalo(COLUNA_H, PRIMEIRA_FILEIRA, BRANCO);
-        Cavalo cavalo4 = new Cavalo(COLUNA_H, SEGUNDA_FILEIRA, BRANCO);
-        Rei rei = new Rei(COLUNA_H, SETIMA_FILEIRA, BRANCO);
+                    if (corDaPeca == PRETO) {
+                        System.out.println("Vez do branco");
+                        continue;
+                    }
+                } else {
+                    int corDaPeca = Tabuleiro.getCasa(colorigem, filorigem).getPeca().getCor();
 
-        System.out.println("Cavalo1");
-        Tabuleiro.analisarCasasLegais(cavalo);
-        System.out.println("Cavalo2");
-        Tabuleiro.analisarCasasLegais(cavalo2);
-        System.out.println("Cavalo3");
-        Tabuleiro.analisarCasasLegais(cavalo3);
-        System.out.println("Cavalo4");
-        Tabuleiro.analisarCasasLegais(cavalo4);
-        System.out.println("Rei");
-        Tabuleiro.analisarCasasLegais(rei);
+                    if (corDaPeca == BRANCO) {
+                        System.out.println("Vez do preto");
+                        continue;
+                    }
+                }
+                Tabuleiro.moverPeca(colorigem, filorigem, coldestino, fildestino);
+            }
+            else{
+                System.out.println("Não existe nenhuma peça nesta casa, burro do caralho!");
+            }
+
+
+        }
     }
 }
