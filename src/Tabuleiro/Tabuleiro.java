@@ -239,18 +239,18 @@ public class Tabuleiro {
         System.out.println();
     }
 
-    public static void moverPeca(int colunaAtual, int fileiraAtual, int coluna, int fileira) {
+    public static void moverPeca(int colorigem, int filorigem, int coldestino, int fildestino) {
         Scanner sc = new Scanner(System.in);
 
-        Casa casaAtual = getCasa(colunaAtual, fileiraAtual);
-        Casa casaAlvo = getCasa(coluna, fileira);
+        Casa casaAtual = getCasa(colorigem, filorigem);
+        Casa casaAlvo = getCasa(coldestino, fildestino);
 
         Peca peca = casaAtual.getPeca();
 
         peca.setCasasLegais();
 
         if (peca.getCasasLegais().contains(casaAlvo)) { //Se é um movimento legal...
-            peca.setPos(coluna, fileira); //Mova a peça para a casa desejada,
+            peca.setPos(coldestino, fildestino); //Mova a peça para a casa desejada,
             peca.setCasa(casaAlvo); //Guarde a casa nova na instância da peça,
 
             casaAlvo.setPeca(peca); //Guarde a instância da peça na casa nova.
@@ -260,10 +260,18 @@ public class Tabuleiro {
             if (peca instanceof Peao) {
                 //EN PASSANT
 
-                int deslocamento = (peca.getCor() == BRANCO) ? 2 : -2;
+                int deslocamento = (peca.getCor() == BRANCO) ? 1 : -1;
 
-                if (casaAlvo.getFileira() == casaAtual.getFileira() + deslocamento) {
+                if (fildestino == filorigem + 2*deslocamento) {
                     ((Peao) peca).setJogadaDuasCasas(jogadas);
+                }
+
+                if(colorigem != coldestino){
+                    if(((Peao) peca).getAlvoEnPassant() != null) {
+                        pecasNoTabuleiro.remove(((Peao) peca).getAlvoEnPassant());
+                        ((Peao) peca).getAlvoEnPassant().getCasa().esvaziar();
+                        ((Peao) peca).getAlvoEnPassant().setCasa(null);
+                    }
                 }
 
                 //PROMOÇÃO
@@ -278,48 +286,50 @@ public class Tabuleiro {
                         novapeca = Character.toLowerCase(novapeca);
                     }
                     // turno preto ent lower
-                    int tf = peca.getFileira();
                     int tc = peca.getColuna();
+                    int tf = peca.getFileira();
                     pecasNoTabuleiro.remove(peca);
                     // setando peca null
                     // ifs para caso seja preta ou branca
                     Peca p = null;
                     if (novapeca == 'r') {
-                        p = new Torre(tf, tc, PRETO);
+                        p = new Torre(tc, tf, PRETO);
                     } else if (novapeca == 'n') {
-                        p = new Cavalo(tf, tc, PRETO);
+                        p = new Cavalo(tc, tf, PRETO);
                     } else if (novapeca == 'b') {
-                        p = new Bispo(tf, tc, PRETO);
+                        p = new Bispo(tc, tf, PRETO);
                     } else if (novapeca == 'q') {
-                        p = new Rainha(tf, tc, PRETO);
+                        p = new Rainha(tc, tf, PRETO);
                     } else if (novapeca == 'R') {
-                        p = new Torre(tf, tc, BRANCO);
+                        p = new Torre(tc, tf, BRANCO);
                     } else if (novapeca == 'N') {
-                        p = new Cavalo(tf, tc, BRANCO);
+                        p = new Cavalo(tc, tf, BRANCO);
                     } else if (novapeca == 'B') {
-                        p = new Bispo(tf, tc, BRANCO);
+                        p = new Bispo(tc, tf, BRANCO);
                     } else if (novapeca == 'Q') {
-                        p = new Rainha(tf, tc, BRANCO);
+                        p = new Rainha(tc, tf, BRANCO);
                     } else {
                         System.out.println("Peça inválida.");
                     }
                     pecasNoTabuleiro.add(p);
                     casaAlvo.setPeca(p);
                 }
-                jogadas++;
+
             }
+            jogadas++;
 
-            } else {
-                System.out.println("Movimento ilegal!");
-            }
+        } else{
+            System.out.println("Movimento ilegal!");
         }
 
-        public static int getJogadas(){
-            return jogadas;
-        }
-
-        public static ArrayList<Peca> getPecasNoTabuleiro(){
-            return pecasNoTabuleiro;
-        }
     }
+
+    public static int getJogadas(){
+        return jogadas;
+    }
+
+    public static ArrayList<Peca> getPecasNoTabuleiro(){
+        return pecasNoTabuleiro;
+    }
+}
 
