@@ -1,5 +1,4 @@
 import Tabuleiro.Tabuleiro;
-import pecas.*;
 
 import java.util.Scanner;
 
@@ -27,8 +26,8 @@ public class Main{
                 }
             }
 
-            int colorigem = Tabuleiro.parseNotationColuna(origem);
-            int filorigem = Tabuleiro.parseNotationFileira(origem);
+            int colOrigem = Tabuleiro.parseNotationColuna(origem);
+            int filOrigem = Tabuleiro.parseNotationFileira(origem);
 
             System.out.println("Digite a casa de destino: ");
             String destino ="";
@@ -39,30 +38,30 @@ public class Main{
                 }
             }
 
-            int coldestino = Tabuleiro.parseNotationColuna(destino);
-            int fildestino = Tabuleiro.parseNotationFileira(destino);
+            int colDestino = Tabuleiro.parseNotationColuna(destino);
+            int filDestino = Tabuleiro.parseNotationFileira(destino);
 
-            if(Tabuleiro.getCasa(colorigem, filorigem).getPeca() != null) {
+            if(Tabuleiro.getCasa(colOrigem, filOrigem).getPeca() != null) {
 
                 if (Tabuleiro.getJogadas() % 2 == 0) {
-                    int corDaPeca = Tabuleiro.getCasa(colorigem, filorigem).getPeca().getCor();
+                    int corDaPeca = Tabuleiro.getCasa(colOrigem, filOrigem).getPeca().getCor();
 
                     if (corDaPeca == PRETO) {
                         System.out.println("Vez do branco");
                         continue;
                     }
                 } else {
-                    int corDaPeca = Tabuleiro.getCasa(colorigem, filorigem).getPeca().getCor();
+                    int corDaPeca = Tabuleiro.getCasa(colOrigem, filOrigem).getPeca().getCor();
 
                     if (corDaPeca == BRANCO) {
                         System.out.println("Vez do preto");
                         continue;
                     }
                 }
-                Tabuleiro.moverPeca(colorigem, filorigem, coldestino, fildestino);
+                Tabuleiro.moverPeca(colOrigem, filOrigem, colDestino, filDestino);
             }
             else{
-                System.out.println("Não existe nenhuma peça nesta casa, burro do caralho!");
+                System.out.println("Não existe nenhuma peça nesta casa!");
             }
         }
     }
