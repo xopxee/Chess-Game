@@ -239,38 +239,41 @@ public class Tabuleiro {
         System.out.println();
     }
 
-    public static void moverPeca(int colorigem, int filorigem, int coldestino, int fildestino) {
+    public static void moverPeca(int colOrigem, int filOrigem, int colDestino, int filDestino) {
         Scanner sc = new Scanner(System.in);
 
-        Casa casaAtual = getCasa(colorigem, filorigem);
-        Casa casaAlvo = getCasa(coldestino, fildestino);
+        Casa casaOrigem = getCasa(colOrigem, filOrigem);
+        Casa casaDestino = getCasa(colDestino, filDestino);
 
-        Peca peca = casaAtual.getPeca();
+        Peca peca = casaOrigem.getPeca();
+        Peca pecaCasaDestino = casaDestino.getPeca();
 
         peca.setCasasLegais();
 
-        if (peca.getCasasLegais().contains(casaAlvo)) { //Se é um movimento legal...
-            peca.setPos(coldestino, fildestino); //Mova a peça para a casa desejada,
-            peca.setCasa(casaAlvo); //Guarde a casa nova na instância da peça,
+        if (peca.getCasasLegais().contains(casaDestino)) { //Se é um movimento legal...
+            peca.setPos(colDestino, filDestino); //Mova a peça para a casa desejada,
+            peca.setCasa(casaDestino); //Guarde a casa nova na instância da peça,
 
-            casaAlvo.setPeca(peca); //Guarde a instância da peça na casa nova.
+            casaDestino.setPeca(peca); //Guarde a instância da peça na casa nova.
 
-            casaAtual.setPeca(null); //Esvazie a casa antiga.
+            casaOrigem.setPeca(null); //Esvazie a casa antiga.
 
             if (peca instanceof Peao) {
                 //EN PASSANT
 
                 int deslocamento = (peca.getCor() == BRANCO) ? 1 : -1;
 
-                if (fildestino == filorigem + 2*deslocamento) {
+                if (filDestino == filOrigem + 2*deslocamento) {
                     ((Peao) peca).setJogadaDuasCasas(jogadas);
                 }
 
-                if(colorigem != coldestino){
-                    if(((Peao) peca).getAlvoEnPassant() != null) {
-                        pecasNoTabuleiro.remove(((Peao) peca).getAlvoEnPassant());
-                        ((Peao) peca).getAlvoEnPassant().getCasa().esvaziar();
-                        ((Peao) peca).getAlvoEnPassant().setCasa(null);
+                if(colOrigem != colDestino){
+                    if(pecaCasaDestino == null){
+                        if(((Peao) peca).getAlvoEnPassant() != null) {
+                            pecasNoTabuleiro.remove(((Peao) peca).getAlvoEnPassant());
+                            ((Peao) peca).getAlvoEnPassant().getCasa().esvaziar();
+                            ((Peao) peca).getAlvoEnPassant().setCasa(null);
+                        }
                     }
                 }
 
@@ -289,30 +292,27 @@ public class Tabuleiro {
                     int tc = peca.getColuna();
                     int tf = peca.getFileira();
                     pecasNoTabuleiro.remove(peca);
+
                     // setando peca null
                     // ifs para caso seja preta ou branca
                     Peca p = null;
-                    if (novapeca == 'r') {
-                        p = new Torre(tc, tf, PRETO);
-                    } else if (novapeca == 'n') {
-                        p = new Cavalo(tc, tf, PRETO);
-                    } else if (novapeca == 'b') {
-                        p = new Bispo(tc, tf, PRETO);
-                    } else if (novapeca == 'q') {
-                        p = new Rainha(tc, tf, PRETO);
-                    } else if (novapeca == 'R') {
-                        p = new Torre(tc, tf, BRANCO);
-                    } else if (novapeca == 'N') {
-                        p = new Cavalo(tc, tf, BRANCO);
-                    } else if (novapeca == 'B') {
-                        p = new Bispo(tc, tf, BRANCO);
-                    } else if (novapeca == 'Q') {
-                        p = new Rainha(tc, tf, BRANCO);
-                    } else {
-                        System.out.println("Peça inválida.");
-                    }
+                    p = switch (novapeca) {
+                        case 'r' -> new Torre(tc, tf, PRETO);
+                        case 'n' -> new Cavalo(tc, tf, PRETO);
+                        case 'b' -> new Bispo(tc, tf, PRETO);
+                        case 'q' -> new Rainha(tc, tf, PRETO);
+                        case 'R' -> new Torre(tc, tf, BRANCO);
+                        case 'N' -> new Cavalo(tc, tf, BRANCO);
+                        case 'B' -> new Bispo(tc, tf, BRANCO);
+                        case 'Q' -> new Rainha(tc, tf, BRANCO);
+                        default -> {
+                            System.out.println("Peça inválida.");
+                            yield null;
+                        }
+                    };
                     pecasNoTabuleiro.add(p);
-                    casaAlvo.setPeca(p);
+                    p.setCasa(casaDestino);
+                    casaDestino.setPeca(p);
                 }
 
             }
