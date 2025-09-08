@@ -12,6 +12,7 @@ public class Main{
         Tabuleiro.criarCasas();
         Tabuleiro.preencherCasasToString();
         Tabuleiro.organizar();
+
         while(true) {
             Tabuleiro.imprimir();
             System.out.println("\n");
@@ -63,8 +64,6 @@ public class Main{
             else{
                 System.out.println("Não existe nenhuma peça nesta casa, burro do caralho!");
             }
-
-
         }
     }
 }

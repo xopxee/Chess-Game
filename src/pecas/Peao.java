@@ -11,7 +11,8 @@ import static Tabuleiro.Tabuleiro.*;
 
 public class Peao extends Peca{
     private ArrayList<Casa> casasLegais = new ArrayList<>();
-    private int jogadaDuasCasas = -1;
+    private int jogadaDuasCasas = -13;
+    private Peao alvoEnPassant = null;
 
     public Peao(int coluna, int fileira, int cor){
         super(coluna, fileira, cor);
@@ -25,9 +26,14 @@ public class Peao extends Peca{
         return jogadaDuasCasas;
     }
 
+    public Peao getAlvoEnPassant() {
+        return alvoEnPassant;
+    }
+
     @Override
     public void setCasasLegais() {
         casasLegais.clear();
+        this.alvoEnPassant = null;
 
         final int umaDireita = super.getColuna() + 1;
         final int umaEsquerda = super.getColuna() - 1;
@@ -108,41 +114,47 @@ public class Peao extends Peca{
 
         }
 
+        //EN PASSANT
+
         Casa casaCaptura;
 
         if(this.getColuna() < COLUNAS) {
+            if(this.getFileira() == fileiraEnPassant) {
+                casaTeste = Tabuleiro.getCasa(umaDireita, this.getFileira()); //Casa ao lado direito desse peão.
 
-            casaTeste = Tabuleiro.getCasa(umaDireita, fileiraEnPassant); //Casa ao lado direito desse peão.
+                pecaNaCasa = casaTeste.getPeca(); //Peça que está (ou não) nessa casa.
 
-            pecaNaCasa = casaTeste.getPeca(); //Peça que está (ou não) nessa casa.
+                casaCaptura = Tabuleiro.getCasa(umaDireita, umaCima); //Casa de captura do En Passant.
 
-            casaCaptura = Tabuleiro.getCasa(umaDireita, umaCima); //Casa de captura do En Passant.
+                if (pecaNaCasa instanceof Peao) {
+                    int corPecaNaCasa = pecaNaCasa.getCor();
 
-            if (pecaNaCasa instanceof Peao) {
-                int corPecaNaCasa = pecaNaCasa.getCor();
-
-                if (((Peao) pecaNaCasa).getJogadaDuasCasas() == Tabuleiro.getJogadas()-1) {
-                    if (corPecaNaCasa != super.getCor()) {
-                        casasLegais.add(casaCaptura); //Peão inimigo em posição de captura.
+                    if (((Peao) pecaNaCasa).getJogadaDuasCasas() == Tabuleiro.getJogadas() - 1) {
+                        if (corPecaNaCasa != super.getCor()) {
+                            this.alvoEnPassant = ((Peao) pecaNaCasa);
+                            casasLegais.add(casaCaptura); //Peão inimigo em posição de captura.
+                        }
                     }
                 }
             }
         }
 
         if(this.getColuna() > 0) {
+            if(this.getFileira() == fileiraEnPassant) {
+                casaTeste = Tabuleiro.getCasa(umaEsquerda, this.getFileira()); //Casa ao lado esquerdo desse peão.
 
-            casaTeste = Tabuleiro.getCasa(umaEsquerda, fileiraEnPassant); //Casa ao lado esquerdo desse peão.
+                pecaNaCasa = casaTeste.getPeca(); //Peça que está (ou não) nessa casa.
 
-            pecaNaCasa = casaTeste.getPeca(); //Peça que está (ou não) nessa casa.
+                casaCaptura = Tabuleiro.getCasa(umaEsquerda, umaCima); //Casa de captura do En Passant.
 
-            casaCaptura = Tabuleiro.getCasa(umaEsquerda, umaCima); //Casa de captura do En Passant.
+                if (pecaNaCasa instanceof Peao) {
+                    int corPecaNaCasa = pecaNaCasa.getCor();
 
-            if (pecaNaCasa instanceof Peao) {
-                int corPecaNaCasa = pecaNaCasa.getCor();
-
-                if (((Peao) pecaNaCasa).getJogadaDuasCasas() == Tabuleiro.getJogadas()-1) {
-                    if (corPecaNaCasa != super.getCor()) {
-                        casasLegais.add(casaCaptura); //Peão inimigo em posição de captura.
+                    if (((Peao) pecaNaCasa).getJogadaDuasCasas() == Tabuleiro.getJogadas() - 1) {
+                        if (corPecaNaCasa != super.getCor()) {
+                            this.alvoEnPassant = ((Peao) pecaNaCasa);
+                            casasLegais.add(casaCaptura); //Peão inimigo em posição de captura.
+                        }
                     }
                 }
             }

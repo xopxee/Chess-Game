@@ -36,6 +36,10 @@ public class Casa {
     public void setPeca(Peca peca) {
         this.peca = peca;
     }
+    public void esvaziar(){
+        this.peca = null;
+    }
+
     public Peca getPeca() {
         return peca;
     }
