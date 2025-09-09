@@ -83,7 +83,7 @@ public class Peao extends Peca{
             }
         }
 
-        if(this.getColuna() < COLUNAS - 1) {
+        if(this.getColuna() < COLUNA_H) {
 
             casaTeste = Tabuleiro.getCasa(umaDireita, umaCima); //Possível captura na diagonal direita.
 
@@ -98,7 +98,7 @@ public class Peao extends Peca{
             }
         }
 
-        if(this.getColuna() > 0) {
+        if(this.getColuna() > COLUNA_A) {
 
             casaTeste = Tabuleiro.getCasa(umaEsquerda, umaCima); //Possível captura na diagonal esquerda.
 
@@ -118,7 +118,7 @@ public class Peao extends Peca{
 
         Casa casaCaptura;
 
-        if(this.getColuna() < COLUNAS - 1) {
+        if(this.getColuna() < COLUNA_H) {
             if(this.getFileira() == fileiraEnPassant) {
                 casaTeste = Tabuleiro.getCasa(umaDireita, this.getFileira()); //Casa ao lado direito desse peão.
 
@@ -139,7 +139,7 @@ public class Peao extends Peca{
             }
         }
 
-        if(this.getColuna() > 0) {
+        if(this.getColuna() > COLUNA_A) {
             if(this.getFileira() == fileiraEnPassant) {
                 casaTeste = Tabuleiro.getCasa(umaEsquerda, this.getFileira()); //Casa ao lado esquerdo desse peão.
 
