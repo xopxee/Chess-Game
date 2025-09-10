@@ -12,7 +12,7 @@ public class Rainha extends Peca{
 
     public Rainha(int coluna, int fileira, int cor){
         super(coluna, fileira, cor);
-        super.tipo = (super.cor == BRANCO) ? 'Q' : 'q';  //notação em inglês (Queen).
+        super.tipo = (super.cor == BRANCO) ? '♛' : '♕';  //notação em inglês (Queen).
     }
 
     @Override

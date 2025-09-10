@@ -12,7 +12,7 @@ public class Torre extends Peca{
 
     public Torre(int coluna, int fileira, int cor){
         super(coluna, fileira, cor);
-        super.tipo = (super.cor == BRANCO) ? 'R' : 'r';  //notação em inglês (Rook).
+        super.tipo = (super.cor == BRANCO) ? '♜' : '♖';  //notação em inglês (Rook).
     }
 
     @Override

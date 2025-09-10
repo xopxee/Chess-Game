@@ -12,7 +12,7 @@ public class Rei extends Peca {
 
     public Rei(int coluna, int fileira, int cor){
         super(coluna, fileira, cor);
-        super.tipo = (super.cor == BRANCO) ? 'K' : 'k';
+        super.tipo = (super.cor == BRANCO) ? '♚' : '♔';
     }
 
     @Override

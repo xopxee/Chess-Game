@@ -137,6 +137,8 @@ public class Tabuleiro {
     private static Casa[][] casas = new Casa[COLUNAS][FILEIRAS];
     private static ArrayList<Peca> pecasNoTabuleiro = new ArrayList<>(32);
 
+    public static final String FEN_POS_INICIAL = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+
     private static int jogadas = 0;
 
     public static Casa getCasa(int coluna, int fileira) {
@@ -158,20 +160,93 @@ public class Tabuleiro {
         preencherCasasToString();
     }
 
-    public static void imprimir() {
+    private static int perspectiva = BRANCO;
+
+    public static int getPerspectiva() {
+        return perspectiva;
+    }
+    public static void setPerspectiva(int perspectiva) {
+        Tabuleiro.perspectiva = perspectiva;
+    }
+
+    public static void imprimirBranco() {
         System.out.print("\n\n\n\n");
-        for (int idFileira = OITAVA_FILEIRA; idFileira >= 0; idFileira--) {
+        for (int idFileira = OITAVA_FILEIRA; idFileira >= PRIMEIRA_FILEIRA; idFileira--) {
             for (int idColuna = COLUNA_A; idColuna < COLUNAS; idColuna++) {
                 Peca pecaNaCasa = getCasa(idColuna, idFileira).getPeca();
 
-                if (pecaNaCasa != null) {
-                    char charPeca = pecaNaCasa.getTipo();
-                    System.out.print("["+charPeca+"]" + " ");
-                } else {
-                    System.out.print("[ ] ");
+                if(idColuna == COLUNA_A) {
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print((idFileira + 1) +"[" + charPeca + ",");
+                    } else {
+                        System.out.print((idFileira + 1) +"[ㅤ,");
+                    }
+                } else if (idColuna == COLUNA_H) {
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print(charPeca + "]");
+                    } else {
+                        System.out.print("ㅤ]");
+                    }
+                }
+                else{
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print(charPeca + ",");
+                    } else {
+                        System.out.print("ㅤ,");
+                    }
                 }
             }
             System.out.println();
+        }
+        System.out.println(" ㅤaㅤbㅤcㅤdㅤeㅤfㅤgㅤhㅤ");
+        setPerspectiva(BRANCO);
+    }
+
+    public static void imprimirPreto() {
+        System.out.print("\n\n\n\n");
+        for (int idFileira = PRIMEIRA_FILEIRA; idFileira < FILEIRAS; idFileira++) {
+            for (int idColuna = COLUNA_H; idColuna >= COLUNA_A; idColuna--) {
+                Peca pecaNaCasa = getCasa(idColuna, idFileira).getPeca();
+
+                if(idColuna == COLUNA_H) {
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print((idFileira + 1) +"[" + charPeca + ",");
+                    } else {
+                        System.out.print((idFileira + 1) +"[ㅤ,");
+                    }
+                } else if (idColuna == COLUNA_A) {
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print(charPeca + "]");
+                    } else {
+                        System.out.print("ㅤ]");
+                    }
+                }
+                else{
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print(charPeca + ",");
+                    } else {
+                        System.out.print("ㅤ,");
+                    }
+                }
+            }
+            System.out.println();
+        }
+        System.out.println(" ㅤhㅤgㅤfㅤeㅤdㅤcㅤbㅤaㅤ");
+        setPerspectiva(PRETO);
+    }
+
+    public static void virar(){
+        if(getPerspectiva() == BRANCO){
+            imprimirPreto();
+        }
+        else{
+            imprimirBranco();
         }
     }
 
@@ -225,6 +300,89 @@ public class Tabuleiro {
         }
 
 
+    }
+
+    public static void limpar(){
+        for (int idColuna = 0; idColuna < COLUNAS; idColuna++) {
+            for (int idFileira = 0; idFileira < FILEIRAS; idFileira++) {
+                getCasa(idColuna, idFileira).esvaziar();
+            }
+        }
+    }
+
+    public static void lerFEN(String FEN){
+        //Contar quantas casas foram passadas
+        int contCasas = 0;
+
+        for (int i = 0, idColuna = COLUNA_A, idFileira = OITAVA_FILEIRA; i < FEN.length(); i++) {
+            switch(FEN.charAt(i)) {
+                case 'r' -> new Torre(idColuna, idFileira, PRETO);
+                case 'n' -> new Cavalo(idColuna, idFileira, PRETO);
+                case 'b' -> new Bispo(idColuna, idFileira, PRETO);
+                case 'q' -> new Rainha(idColuna, idFileira, PRETO);
+                case 'k' -> new Rei(idColuna, idFileira, PRETO);
+                case 'p' -> new Peao(idColuna, idFileira, PRETO);
+                case 'R' -> new Torre(idColuna, idFileira, BRANCO);
+                case 'N' -> new Cavalo(idColuna, idFileira, BRANCO);
+                case 'B' -> new Bispo(idColuna, idFileira, BRANCO);
+                case 'Q' -> new Rainha(idColuna, idFileira, BRANCO);
+                case 'K' -> new Rei(idColuna, idFileira, BRANCO);
+                case 'P' -> new Peao(idColuna, idFileira, BRANCO);
+                case '/' -> {
+                    try {
+                        idFileira--;                        //Pula para a fileira de baixo.
+                        getCasa(0, idFileira);       //Tenta acessar a casa para ver se ela está dentro dos limites do array. Caso contrário, entra no catch.
+                    }
+                    catch(ArrayIndexOutOfBoundsException e) {
+                        System.out.println("FEN digitado inválido! (Mais de 8 fileiras lidas!)");
+                        limpar();
+                        return;
+                    }
+                    idColuna = COLUNA_A;   //Recomeça da Coluna A.
+                    continue;
+                }
+                default ->{
+                    try{
+                        int pulos = Integer.parseInt(String.valueOf(FEN.charAt(i)));  //Tenta converter o char para inteiro. Caso não consiga, entra no catch.
+
+                        try {
+                            idColuna += pulos;
+                            contCasas += pulos;
+                            getCasa(idColuna - 1, 0);  //Tenta acessar a casa ANTERIOR para ver se ela está dentro dos limites do array (Já que a Coluna H também pode ser pulada). Caso contrário, entra no catch.
+                            continue;
+                        }
+                        catch(ArrayIndexOutOfBoundsException e){
+                            System.out.println("FEN digitado inválido! (Mais de 8 colunas lidas!)");
+                            limpar();
+                            return;
+                        }
+                    }
+                    catch(NumberFormatException e){
+                        System.out.println("FEN digitado inválido! (Caracter inválido!)");  //Foi passado um caracter diferente de um número e dos listados acima.
+                        limpar();
+                        return;
+                    }
+                }
+            }
+            try {
+                if(i != FEN.length() - 1) {           //Se não for a última iteração,
+                    if (FEN.charAt(i + 1) != '/') {   //Verificar se o próximo char é uma quebra de fileira.
+                        idColuna++;
+                        getCasa(idColuna, 0);   //Tenta acessar a casa para ver se ela está dentro dos limites do array. Caso contrário, entra no catch.
+                    }
+                }
+                contCasas++;
+            }
+            catch(ArrayIndexOutOfBoundsException e){
+                System.out.println("FEN digitado inválido! (Mais de 8 colunas lidas!)");
+                limpar();
+                return;
+            }
+        }
+        if(contCasas < 64){
+            System.out.println("FEN digitado inválido! (Menos de 64 casas lidas!)");
+            limpar();
+        }
     }
 
     public static void analisarCasasLegais(Peca peca) {

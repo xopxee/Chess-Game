@@ -14,7 +14,7 @@ public class Bispo extends Peca{
 
     public Bispo(int coluna, int fileira, int cor){
         super(coluna, fileira, cor);
-        super.tipo = (super.cor == BRANCO) ? 'B' : 'b';  //notação em inglês (Bishop).
+        super.tipo = (super.cor == BRANCO) ? '♝' : '♗';  //notação em inglês (Bishop).
     }
 
     @Override

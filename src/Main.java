@@ -10,14 +10,14 @@ public class Main{
 
         Tabuleiro.criarCasas();
         Tabuleiro.preencherCasasToString();
-        Tabuleiro.organizar();
+        lerFEN(FEN_POS_INICIAL);
+        imprimirBranco();
 
         while(true) {
-            Tabuleiro.imprimir();
             System.out.println("\n");
 
             System.out.println("Digite a casa de origem: ");
-            String origem = "";
+            String origem;
             while(true){
                 origem = sc.nextLine();
 
@@ -30,7 +30,7 @@ public class Main{
             int filOrigem = Tabuleiro.parseNotationFileira(origem);
 
             System.out.println("Digite a casa de destino: ");
-            String destino ="";
+            String destino;
             while(true){
                 destino = sc.nextLine();
                 if(casasToString.contains(destino)){
@@ -63,6 +63,7 @@ public class Main{
             else{
                 System.out.println("Não existe nenhuma peça nesta casa!");
             }
+            virar();
         }
     }
 }
