@@ -16,7 +16,7 @@ public class Peao extends Peca{
 
     public Peao(int coluna, int fileira, int cor){
         super(coluna, fileira, cor);
-        super.tipo = (super.cor == BRANCO) ? 'P' : 'p';  //notação em inglês (Pawn).
+        super.tipo = (super.cor == BRANCO) ? '♟' : '♙';  //notação em inglês (Pawn).
     }
 
     public void setJogadaDuasCasas(int jogadaDuasCasas) {

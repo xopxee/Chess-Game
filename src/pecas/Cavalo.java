@@ -12,7 +12,7 @@ public class Cavalo extends Peca{
 
     public Cavalo(int coluna, int fileira, int cor){
         super(coluna, fileira, cor);
-        super.tipo = (super.cor == BRANCO) ? 'N' : 'n';  //notação em inglês (Knight).
+        super.tipo = (super.cor == BRANCO) ? '♞' : '♘';  //notação em inglês (Knight).
     }
 
     @Override

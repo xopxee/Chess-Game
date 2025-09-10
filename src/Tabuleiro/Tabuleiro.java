@@ -160,20 +160,93 @@ public class Tabuleiro {
         preencherCasasToString();
     }
 
-    public static void imprimir() {
+    private static int perspectiva = BRANCO;
+
+    public static int getPerspectiva() {
+        return perspectiva;
+    }
+    public static void setPerspectiva(int perspectiva) {
+        Tabuleiro.perspectiva = perspectiva;
+    }
+
+    public static void imprimirBranco() {
         System.out.print("\n\n\n\n");
-        for (int idFileira = OITAVA_FILEIRA; idFileira >= 0; idFileira--) {
+        for (int idFileira = OITAVA_FILEIRA; idFileira >= PRIMEIRA_FILEIRA; idFileira--) {
             for (int idColuna = COLUNA_A; idColuna < COLUNAS; idColuna++) {
                 Peca pecaNaCasa = getCasa(idColuna, idFileira).getPeca();
 
-                if (pecaNaCasa != null) {
-                    char charPeca = pecaNaCasa.getTipo();
-                    System.out.print("["+charPeca+"]" + " ");
-                } else {
-                    System.out.print("[ ] ");
+                if(idColuna == COLUNA_A) {
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print((idFileira + 1) +"[" + charPeca + ",");
+                    } else {
+                        System.out.print((idFileira + 1) +"[ㅤ,");
+                    }
+                } else if (idColuna == COLUNA_H) {
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print(charPeca + "]");
+                    } else {
+                        System.out.print("ㅤ]");
+                    }
+                }
+                else{
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print(charPeca + ",");
+                    } else {
+                        System.out.print("ㅤ,");
+                    }
                 }
             }
             System.out.println();
+        }
+        System.out.println(" ㅤaㅤbㅤcㅤdㅤeㅤfㅤgㅤhㅤ");
+        setPerspectiva(BRANCO);
+    }
+
+    public static void imprimirPreto() {
+        System.out.print("\n\n\n\n");
+        for (int idFileira = PRIMEIRA_FILEIRA; idFileira < FILEIRAS; idFileira++) {
+            for (int idColuna = COLUNA_H; idColuna >= COLUNA_A; idColuna--) {
+                Peca pecaNaCasa = getCasa(idColuna, idFileira).getPeca();
+
+                if(idColuna == COLUNA_H) {
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print((idFileira + 1) +"[" + charPeca + ",");
+                    } else {
+                        System.out.print((idFileira + 1) +"[ㅤ,");
+                    }
+                } else if (idColuna == COLUNA_A) {
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print(charPeca + "]");
+                    } else {
+                        System.out.print("ㅤ]");
+                    }
+                }
+                else{
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print(charPeca + ",");
+                    } else {
+                        System.out.print("ㅤ,");
+                    }
+                }
+            }
+            System.out.println();
+        }
+        System.out.println(" ㅤhㅤgㅤfㅤeㅤdㅤcㅤbㅤaㅤ");
+        setPerspectiva(PRETO);
+    }
+
+    public static void virar(){
+        if(getPerspectiva() == BRANCO){
+            imprimirPreto();
+        }
+        else{
+            imprimirBranco();
         }
     }
 

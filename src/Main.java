@@ -11,11 +11,9 @@ public class Main{
         Tabuleiro.criarCasas();
         Tabuleiro.preencherCasasToString();
         lerFEN(FEN_POS_INICIAL);
-        limpar();
-        lerFEN("5k2/p1q1ppbp/6p1/5b2/8/4BP2/PPP3PP/2KR1B1R");
+        imprimirBranco();
 
         while(true) {
-            Tabuleiro.imprimir();
             System.out.println("\n");
 
             System.out.println("Digite a casa de origem: ");
@@ -65,6 +63,7 @@ public class Main{
             else{
                 System.out.println("Não existe nenhuma peça nesta casa!");
             }
+            virar();
         }
     }
 }
