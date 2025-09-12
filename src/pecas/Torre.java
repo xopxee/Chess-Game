@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import static Tabuleiro.Tabuleiro.*;
 
 public class Torre extends Peca{
-    private ArrayList<Casa> casasLegais = new ArrayList<>();
+    private ArrayList<Casa> casasLegais = new ArrayList<>(14);
 
     public Torre(int coluna, int fileira, int cor){
         super(coluna, fileira, cor);

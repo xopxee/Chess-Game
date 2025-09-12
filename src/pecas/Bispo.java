@@ -10,7 +10,7 @@ import static Tabuleiro.Tabuleiro.COLUNAS;
 import static Tabuleiro.Tabuleiro.FILEIRAS;
 
 public class Bispo extends Peca{
-    private ArrayList<Casa> casasLegais = new ArrayList<>();
+    private ArrayList<Casa> casasLegais = new ArrayList<>(14);
 
     public Bispo(int coluna, int fileira, int cor){
         super(coluna, fileira, cor);

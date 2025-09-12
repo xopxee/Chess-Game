@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import static Tabuleiro.Tabuleiro.*;
 
 public class Rainha extends Peca{
-    private ArrayList<Casa> casasLegais = new ArrayList<>();
+    private ArrayList<Casa> casasLegais = new ArrayList<>(28);
 
     public Rainha(int coluna, int fileira, int cor){
         super(coluna, fileira, cor);

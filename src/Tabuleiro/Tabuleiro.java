@@ -165,6 +165,7 @@ public class Tabuleiro {
     public static int getPerspectiva() {
         return perspectiva;
     }
+
     public static void setPerspectiva(int perspectiva) {
         Tabuleiro.perspectiva = perspectiva;
     }
@@ -172,7 +173,7 @@ public class Tabuleiro {
     public static void imprimirBranco() {
         System.out.print("\n\n\n\n");
         for (int idFileira = OITAVA_FILEIRA; idFileira >= PRIMEIRA_FILEIRA; idFileira--) {
-            for (int idColuna = COLUNA_A; idColuna < COLUNAS; idColuna++) {
+            for (int idColuna = COLUNA_A; idColuna <= COLUNA_H; idColuna++) {
                 Peca pecaNaCasa = getCasa(idColuna, idFileira).getPeca();
 
                 if(idColuna == COLUNA_A) {
@@ -239,6 +240,15 @@ public class Tabuleiro {
         }
         System.out.println(" ㅤhㅤgㅤfㅤeㅤdㅤcㅤbㅤaㅤ");
         setPerspectiva(PRETO);
+    }
+
+    public static void imprimirCorAtual(){
+        if(getPerspectiva() == BRANCO){
+            imprimirBranco();
+        }
+        else{
+            imprimirPreto();
+        }
     }
 
     public static void virar(){
@@ -364,6 +374,7 @@ public class Tabuleiro {
                     }
                 }
             }
+
             try {
                 if(i != FEN.length() - 1) {           //Se não for a última iteração,
                     if (FEN.charAt(i + 1) != '/') {   //Verificar se o próximo char é uma quebra de fileira.
@@ -408,7 +419,8 @@ public class Tabuleiro {
 
         peca.setCasasLegais();
 
-        if (peca.getCasasLegais().contains(casaDestino)) { //Se é um movimento legal...
+        boolean movimentoLegal = peca.getCasasLegais().contains(casaDestino);
+        if (movimentoLegal) { //Se é um movimento legal...
             peca.setPos(colDestino, filDestino); //Mova a peça para a casa desejada,
             peca.setCasa(casaDestino); //Guarde a casa nova na instância da peça,
 
@@ -416,12 +428,14 @@ public class Tabuleiro {
 
             casaOrigem.setPeca(null); //Esvazie a casa antiga.
 
+            virar();                  //Vire o tabuleiro.
+
             if (peca instanceof Peao) {
                 //EN PASSANT
 
                 int deslocamento = (peca.getCor() == BRANCO) ? 1 : -1;
 
-                if (filDestino == filOrigem + 2*deslocamento) {
+                if (filDestino == filOrigem + 2 * deslocamento) {
                     ((Peao) peca).setJogadaDuasCasas(jogadas);
                 }
 
@@ -478,6 +492,7 @@ public class Tabuleiro {
 
         } else{
             System.out.println("Movimento ilegal!");
+            imprimirCorAtual();
         }
 
     }

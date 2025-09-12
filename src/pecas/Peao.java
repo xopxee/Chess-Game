@@ -10,7 +10,7 @@ import static Tabuleiro.Tabuleiro.*;
 //DELETAR A PEÇA CAPTURADA PELO EN PASSANT!!!
 
 public class Peao extends Peca{
-    private ArrayList<Casa> casasLegais = new ArrayList<>();
+    private ArrayList<Casa> casasLegais = new ArrayList<>(4);
     private int jogadaDuasCasas = -13;
     private Peao alvoEnPassant = null;
 
