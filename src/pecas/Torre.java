@@ -19,6 +19,8 @@ public class Torre extends Peca{
     public void setCasasLegais() {
         casasLegais.clear();
 
+        ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasBrancasLegais : casasPretasLegais;
+
         //Movimentos para direita
         for (int idColuna = super.getColuna() + 1; idColuna < COLUNAS; idColuna++) {
             Casa casaNaFileira = Tabuleiro.getCasa(idColuna, super.getFileira()); //Casas que estão na mesma fileira.
@@ -27,12 +29,14 @@ public class Torre extends Peca{
 
             if(pecaNaFileira == null) {
                 casasLegais.add(casaNaFileira); //Caminho está livre, logo é um movimento legal.
+                arrayCorrespondente.add(casaNaFileira);
             }
             else{
                 int corPecaNaFileira = pecaNaFileira.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaFileira != super.getCor()) {
                     casasLegais.add(casaNaFileira);  //Como a peça é de outra cor, podemos capturar.
+                    arrayCorrespondente.add(casaNaFileira);
                 }
                 break; //Caminho está bloqueado.
             }
@@ -47,12 +51,14 @@ public class Torre extends Peca{
 
             if(pecaNaFileira == null) {
                 casasLegais.add(casaNaFileira); //Caminho está livre, logo é um movimento legal.
+                arrayCorrespondente.add(casaNaFileira);
             }
             else{
                 int corPecaNaFileira = pecaNaFileira.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaFileira != super.getCor()) {
                     casasLegais.add(casaNaFileira);  //Como a peça é de outra cor, podemos capturar,
+                    arrayCorrespondente.add(casaNaFileira);
                 }
                 break; //Caminho está bloqueado.
             }
@@ -67,12 +73,14 @@ public class Torre extends Peca{
 
             if(pecaNaColuna == null) {
                 casasLegais.add(casaNaColuna); //Caminho está livre, logo é um movimento legal.
+                arrayCorrespondente.add(casaNaColuna);
             }
             else{
                 int corPecaNaColuna = pecaNaColuna.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaColuna != super.getCor()) {
                     casasLegais.add(casaNaColuna);  //Como a peça é de outra cor, podemos capturar,
+                    arrayCorrespondente.add(casaNaColuna);
                 }
                 break; //Caminho está bloqueado.
             }
@@ -87,12 +95,14 @@ public class Torre extends Peca{
 
             if(pecaNaColuna == null) {
                 casasLegais.add(casaNaColuna); //Caminho está livre, logo é um movimento legal.
+                arrayCorrespondente.add(casaNaColuna);
             }
             else{
                 int corPecaNaColuna = pecaNaColuna.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaColuna != super.getCor()) {
                     casasLegais.add(casaNaColuna);  //Como a peça é de outra cor, podemos capturar,
+                    arrayCorrespondente.add(casaNaColuna);
                 }
                 break; //Caminho está bloqueado.
             }

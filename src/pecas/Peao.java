@@ -35,6 +35,8 @@ public class Peao extends Peca{
         casasLegais.clear();
         this.alvoEnPassant = null;
 
+        ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasBrancasLegais : casasPretasLegais;
+
         final int umaDireita = super.getColuna() + 1;
         final int umaEsquerda = super.getColuna() - 1;
 
@@ -67,6 +69,7 @@ public class Peao extends Peca{
 
         if(pecaNaCasa == null){
             casasLegais.add(casaTeste); //A casa está livre, logo é um movimento legal.
+            arrayCorrespondente.add(casaTeste);
         }
         else{
             isBlocked = true;
@@ -80,6 +83,7 @@ public class Peao extends Peca{
 
             if (pecaNaCasa == null) {
                 casasLegais.add(casaTeste); //A casa está livre, logo é um movimento legal.
+                arrayCorrespondente.add(casaTeste);
             }
         }
 
@@ -94,6 +98,7 @@ public class Peao extends Peca{
 
                 if (corPecaNaCasa != super.getCor()) {
                     casasLegais.add(casaTeste); //Peça inimiga em posição de captura.
+                    arrayCorrespondente.add(casaTeste);
                 }
             }
         }
@@ -109,6 +114,7 @@ public class Peao extends Peca{
 
                 if (corPecaNaCasa != super.getCor()) {
                     casasLegais.add(casaTeste); //Peça inimiga em posição de captura.
+                    arrayCorrespondente.add(casaTeste);
                 }
             }
 
@@ -133,6 +139,7 @@ public class Peao extends Peca{
                         if (corPecaNaCasa != super.getCor()) {
                             this.alvoEnPassant = ((Peao) pecaNaCasa);
                             casasLegais.add(casaCaptura); //Peão inimigo em posição de captura.
+                            arrayCorrespondente.add(casaCaptura);
                         }
                     }
                 }
@@ -154,6 +161,7 @@ public class Peao extends Peca{
                         if (corPecaNaCasa != super.getCor()) {
                             this.alvoEnPassant = ((Peao) pecaNaCasa);
                             casasLegais.add(casaCaptura); //Peão inimigo em posição de captura.
+                            arrayCorrespondente.add(casaCaptura);
                         }
                     }
                 }

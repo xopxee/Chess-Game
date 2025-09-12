@@ -21,6 +21,8 @@ public class Bispo extends Peca{
     public void setCasasLegais() {
         casasLegais.clear();
 
+        ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasBrancasLegais : casasPretasLegais;
+
         //Movimento para diagonal direita superior
 
         int idColuna  = super.getColuna()  + 1;
@@ -33,12 +35,14 @@ public class Bispo extends Peca{
 
             if(pecaNaDiagonal == null){
                 casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
+                arrayCorrespondente.add(casaNaDiagonal);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaDiagonal != super.getCor()) {
                     casasLegais.add(casaNaDiagonal); //Como a peça é de outra cor, podemos capturar,
+                    arrayCorrespondente.add(casaNaDiagonal);
                 }
                 break;  //Caminho está bloqueado.
             }
@@ -57,12 +61,14 @@ public class Bispo extends Peca{
 
             if(pecaNaDiagonal == null){
                 casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
+                arrayCorrespondente.add(casaNaDiagonal);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaDiagonal != super.getCor()) {
                     casasLegais.add(casaNaDiagonal); //Como a peça é de outra cor, podemos capturar,
+                    arrayCorrespondente.add(casaNaDiagonal);
                 }
                 break;  //Caminho está bloqueado.
             }
@@ -81,12 +87,14 @@ public class Bispo extends Peca{
 
             if(pecaNaDiagonal == null){
                 casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
+                arrayCorrespondente.add(casaNaDiagonal);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaDiagonal != super.getCor()) {
                     casasLegais.add(casaNaDiagonal); //Como a peça é de outra cor, podemos capturar,
+                    arrayCorrespondente.add(casaNaDiagonal);
                 }
                 break;  //Caminho está bloqueado.
             }
@@ -105,12 +113,14 @@ public class Bispo extends Peca{
 
             if(pecaNaDiagonal == null){
                 casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
+                arrayCorrespondente.add(casaNaDiagonal);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaDiagonal != super.getCor()) {
                     casasLegais.add(casaNaDiagonal); //Como a peça é de outra cor, podemos capturar,
+                    arrayCorrespondente.add(casaNaDiagonal);
                 }
                 break;  //Caminho está bloqueado.
             }
