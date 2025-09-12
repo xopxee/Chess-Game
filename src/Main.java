@@ -48,6 +48,7 @@ public class Main{
 
                     if (corDaPeca == PRETO) {
                         System.out.println("Vez do branco");
+                        imprimirCorAtual();
                         continue;
                     }
                 } else {
@@ -55,6 +56,7 @@ public class Main{
 
                     if (corDaPeca == BRANCO) {
                         System.out.println("Vez do preto");
+                        imprimirCorAtual();
                         continue;
                     }
                 }
@@ -62,8 +64,8 @@ public class Main{
             }
             else{
                 System.out.println("Não existe nenhuma peça nesta casa!");
+                imprimirCorAtual();
             }
-            virar();
         }
     }
 }
