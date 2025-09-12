@@ -5,6 +5,15 @@ import pecas.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/*
+    if(Rei.getCheck() == true){
+        while(pecascasaslegais.contains(Rei.getCasa())){
+            num vai
+        }
+    }
+ */
+
+
 public class Tabuleiro {
 
     public static final int COLUNAS = 8;
@@ -136,6 +145,9 @@ public class Tabuleiro {
 
     private static Casa[][] casas = new Casa[COLUNAS][FILEIRAS];
     private static ArrayList<Peca> pecasNoTabuleiro = new ArrayList<>(32);
+
+    public static ArrayList<Casa> casasBrancasLegais = new ArrayList<>(32);
+    public static ArrayList<Casa> casasPretasLegais = new ArrayList<>(32);
 
     public static final String FEN_POS_INICIAL = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
 

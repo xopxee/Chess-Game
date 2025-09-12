@@ -18,12 +18,12 @@ public class Cavalo extends Peca{
     @Override
     public void setCasasLegais() {
         casasLegais.clear();
+        ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasBrancasLegais : casasPretasLegais;
 
         final int umaDireita  = super.getColuna() + 1;
         final int duasDireita = super.getColuna() + 2;
         final int umaEsquerda  = super.getColuna() - 1;
         final int duasEsquerda = super.getColuna() - 2;
-
 
         final int umaCima  = super.getFileira() + 1;
         final int duasCima = super.getFileira() + 2;
@@ -33,144 +33,135 @@ public class Cavalo extends Peca{
         Casa casaTeste;
         Peca pecaNaCasa;
 
-        //Todas 8 direções possíveis (2 casas para uma direção mais 1 para outra) :
-
         if(umaDireita < COLUNAS && duasCima < FILEIRAS){
-
-            casaTeste = Tabuleiro.getCasa(umaDireita, duasCima); //Uma casa para direita e duas para cima.
-
-            pecaNaCasa = casaTeste.getPeca(); //Peça que está (ou não) nessa casa.
+            casaTeste = Tabuleiro.getCasa(umaDireita, duasCima);
+            pecaNaCasa = casaTeste.getPeca();
 
             if (pecaNaCasa == null) {
-                casasLegais.add(casaTeste); //A casa está livre, logo é um movimento legal.
+                casasLegais.add(casaTeste);
+                arrayCorrespondente.add(casaTeste);
             } else {
-                int corPecaNaCasa = pecaNaCasa.getCor(); //Se tem uma peça na casa, pegue a cor dela.
-
+                int corPecaNaCasa = pecaNaCasa.getCor();
                 if (corPecaNaCasa != super.getCor()) {
-                    casasLegais.add(casaTeste); //Como a peça é de outra cor, podemos capturar.
+                    casasLegais.add(casaTeste);
+                    arrayCorrespondente.add(casaTeste);
                 }
             }
         }
 
         if(duasDireita < COLUNAS && umaCima < FILEIRAS) {
-
-            casaTeste = Tabuleiro.getCasa(duasDireita, umaCima); //Duas casas para direita e uma para cima.
-
-            pecaNaCasa = casaTeste.getPeca(); //Peça que está (ou não) nessa casa.
+            casaTeste = Tabuleiro.getCasa(duasDireita, umaCima);
+            pecaNaCasa = casaTeste.getPeca();
 
             if (pecaNaCasa == null) {
-                casasLegais.add(casaTeste); //A casa está livre, logo é um movimento legal.
+                casasLegais.add(casaTeste);
+                arrayCorrespondente.add(casaTeste);
             } else {
-                int corPecaNaCasa = pecaNaCasa.getCor(); //Se tem uma peça na casa, pegue a cor dela.
-
+                int corPecaNaCasa = pecaNaCasa.getCor();
                 if (corPecaNaCasa != super.getCor()) {
-                    casasLegais.add(casaTeste); //Como a peça é de outra cor, podemos capturar.
+                    casasLegais.add(casaTeste);
+                    arrayCorrespondente.add(casaTeste);
                 }
             }
         }
 
         if(duasEsquerda >= 0 && umaCima < FILEIRAS) {
-
-            casaTeste = Tabuleiro.getCasa(duasEsquerda, umaCima); //Duas casas para esquerda e uma para cima.
-
-            pecaNaCasa = casaTeste.getPeca(); //Peça que está (ou não) nessa casa.
+            casaTeste = Tabuleiro.getCasa(duasEsquerda, umaCima);
+            pecaNaCasa = casaTeste.getPeca();
 
             if (pecaNaCasa == null) {
-                casasLegais.add(casaTeste); //A casa está livre, logo é um movimento legal.
+                casasLegais.add(casaTeste);
+                arrayCorrespondente.add(casaTeste);
             } else {
-                int corPecaNaCasa = pecaNaCasa.getCor(); //Se tem uma peça na casa, pegue a cor dela.
-
+                int corPecaNaCasa = pecaNaCasa.getCor();
                 if (corPecaNaCasa != super.getCor()) {
-                    casasLegais.add(casaTeste); //Como a peça é de outra cor, podemos capturar.
+                    casasLegais.add(casaTeste);
+                    arrayCorrespondente.add(casaTeste);
                 }
             }
         }
 
         if(umaEsquerda >= 0 && duasCima < FILEIRAS) {
-
-            casaTeste = Tabuleiro.getCasa(umaEsquerda, duasCima); //Uma casa para esquerda e duas para cima.
-
-            pecaNaCasa = casaTeste.getPeca(); //Peça que está (ou não) nessa casa.
+            casaTeste = Tabuleiro.getCasa(umaEsquerda, duasCima);
+            pecaNaCasa = casaTeste.getPeca();
 
             if (pecaNaCasa == null) {
-                casasLegais.add(casaTeste); //A casa está livre, logo é um movimento legal.
+                casasLegais.add(casaTeste);
+                arrayCorrespondente.add(casaTeste);
             } else {
-                int corPecaNaCasa = pecaNaCasa.getCor(); //Se tem uma peça na casa, pegue a cor dela.
-
+                int corPecaNaCasa = pecaNaCasa.getCor();
                 if (corPecaNaCasa != super.getCor()) {
-                    casasLegais.add(casaTeste); //Como a peça é de outra cor, podemos capturar.
+                    casasLegais.add(casaTeste);
+                    arrayCorrespondente.add(casaTeste);
                 }
             }
         }
 
         if(duasEsquerda >= 0 && umaBaixo >= 0) {
-
-            casaTeste = Tabuleiro.getCasa(duasEsquerda, umaBaixo); //Duas casas para esquerda e uma para baixo.
-
-            pecaNaCasa = casaTeste.getPeca(); //Peça que está (ou não) nessa casa.
+            casaTeste = Tabuleiro.getCasa(duasEsquerda, umaBaixo);
+            pecaNaCasa = casaTeste.getPeca();
 
             if (pecaNaCasa == null) {
-                casasLegais.add(casaTeste); //A casa está livre, logo é um movimento legal.
+                casasLegais.add(casaTeste);
+                arrayCorrespondente.add(casaTeste);
             } else {
-                int corPecaNaCasa = pecaNaCasa.getCor(); //Se tem uma peça na casa, pegue a cor dela.
-
+                int corPecaNaCasa = pecaNaCasa.getCor();
                 if (corPecaNaCasa != super.getCor()) {
-                    casasLegais.add(casaTeste); //Como a peça é de outra cor, podemos capturar.
+                    casasLegais.add(casaTeste);
+                    arrayCorrespondente.add(casaTeste);
                 }
             }
         }
 
         if(umaEsquerda >= 0 && duasBaixo >= 0) {
-
-            casaTeste = Tabuleiro.getCasa(umaEsquerda, duasBaixo); //Uma casa para esquerda e duas para baixo.
-
-            pecaNaCasa = casaTeste.getPeca(); //Peça que está (ou não) nessa casa.
+            casaTeste = Tabuleiro.getCasa(umaEsquerda, duasBaixo);
+            pecaNaCasa = casaTeste.getPeca();
 
             if (pecaNaCasa == null) {
-                casasLegais.add(casaTeste); //A casa está livre, logo é um movimento legal.
+                casasLegais.add(casaTeste);
+                arrayCorrespondente.add(casaTeste);
             } else {
-                int corPecaNaCasa = pecaNaCasa.getCor(); //Se tem uma peça na casa, pegue a cor dela.
-
+                int corPecaNaCasa = pecaNaCasa.getCor();
                 if (corPecaNaCasa != super.getCor()) {
-                    casasLegais.add(casaTeste); //Como a peça é de outra cor, podemos capturar.
+                    casasLegais.add(casaTeste);
+                    arrayCorrespondente.add(casaTeste);
                 }
             }
         }
 
         if(umaDireita < COLUNAS && duasBaixo >= 0) {
-
-            casaTeste = Tabuleiro.getCasa(umaDireita, duasBaixo); //Uma casa para direita e duas para baixo.
-
-            pecaNaCasa = casaTeste.getPeca(); //Peça que está (ou não) nessa casa.
+            casaTeste = Tabuleiro.getCasa(umaDireita, duasBaixo);
+            pecaNaCasa = casaTeste.getPeca();
 
             if (pecaNaCasa == null) {
-                casasLegais.add(casaTeste); //A casa está livre, logo é um movimento legal.
+                casasLegais.add(casaTeste);
+                arrayCorrespondente.add(casaTeste);
             } else {
-                int corPecaNaCasa = pecaNaCasa.getCor(); //Se tem uma peça na casa, pegue a cor dela.
-
+                int corPecaNaCasa = pecaNaCasa.getCor();
                 if (corPecaNaCasa != super.getCor()) {
-                    casasLegais.add(casaTeste); //Como a peça é de outra cor, podemos capturar.
+                    casasLegais.add(casaTeste);
+                    arrayCorrespondente.add(casaTeste);
                 }
             }
         }
 
         if(duasDireita < COLUNAS && umaBaixo >= 0) {
-
-            casaTeste = Tabuleiro.getCasa(duasDireita, umaBaixo); //Duas casas para direita e uma para baixo.
-
-            pecaNaCasa = casaTeste.getPeca(); //Peça que está (ou não) nessa casa.
+            casaTeste = Tabuleiro.getCasa(duasDireita, umaBaixo);
+            pecaNaCasa = casaTeste.getPeca();
 
             if (pecaNaCasa == null) {
-                casasLegais.add(casaTeste); //A casa está livre, logo é um movimento legal.
+                casasLegais.add(casaTeste);
+                arrayCorrespondente.add(casaTeste);
             } else {
-                int corPecaNaCasa = pecaNaCasa.getCor(); //Se tem uma peça na casa, pegue a cor dela.
-
+                int corPecaNaCasa = pecaNaCasa.getCor();
                 if (corPecaNaCasa != super.getCor()) {
-                    casasLegais.add(casaTeste); //Como a peça é de outra cor, podemos capturar.
+                    casasLegais.add(casaTeste);
+                    arrayCorrespondente.add(casaTeste);
                 }
             }
         }
     }
+
     @Override
     public ArrayList<Casa> getCasasLegais() {
         return casasLegais;
