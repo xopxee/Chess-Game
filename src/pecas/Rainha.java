@@ -8,18 +8,20 @@ import java.util.ArrayList;
 import static Tabuleiro.Tabuleiro.*;
 
 public class Rainha extends Peca{
-    private ArrayList<Casa> casasLegais = new ArrayList<>(28);
 
     public Rainha(int coluna, int fileira, int cor){
         super(coluna, fileira, cor);
         super.tipo = (super.cor == BRANCO) ? '♛' : '♕';  //notação em inglês (Queen).
+        super.casasLegais = new ArrayList<>(28);
     }
 
     @Override
     public void setCasasLegais() {
-        casasLegais.clear();
+        super.casasLegais.clear();
 
-        ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasBrancasLegais : casasPretasLegais;
+        ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasLegaisPecasBrancas : casasLegaisPecasPretas;
+
+        int byCorAtual = (super.getCor() == BRANCO)? BY_WHITE : BY_BLACK;
 
         //Movimentos Horizontais e Verticais:
 
@@ -30,15 +32,30 @@ public class Rainha extends Peca{
             Peca pecaNaFileira = casaNaFileira.getPeca();  //Peças que estão (ou não) nessas casas.
 
             if(pecaNaFileira == null) {
-                casasLegais.add(casaNaFileira); //Caminho está livre, logo é um movimento legal.
+                super.casasLegais.add(casaNaFileira); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaFileira);
             }
             else{
                 int corPecaNaFileira = pecaNaFileira.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaFileira != super.getCor()) {
-                    casasLegais.add(casaNaFileira);  //Como a peça é de outra cor, podemos capturar,
+                    super.casasLegais.add(casaNaFileira);  //Como a peça é de outra cor, podemos capturar,
                     arrayCorrespondente.add(casaNaFileira);
+
+                    if(pecaNaFileira instanceof Rei){
+                        ((Rei) pecaNaFileira).setIsInCheck(true);
+                        ((Rei) pecaNaFileira).incPecasAtacantes();
+
+                        for (idColuna = pecaNaFileira.getColuna() - 1; idColuna >= this.getColuna(); idColuna--){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
+                            casaNaFileira = Tabuleiro.getCasa(idColuna, super.getFileira()); //Casas que estão na mesma fileira.
+                            if(corPecaNaFileira == BRANCO){
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaFileira);
+                            }
+                            else{
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaFileira);
+                            }
+                        }
+                    }
                 }
                 break; //Caminho está bloqueado.
             }
@@ -52,15 +69,30 @@ public class Rainha extends Peca{
             Peca pecaNaFileira = casaNaFileira.getPeca();  //Peças que estão (ou não) nessas casas.
 
             if(pecaNaFileira == null) {
-                casasLegais.add(casaNaFileira); //Caminho está livre, logo é um movimento legal.
+                super.casasLegais.add(casaNaFileira); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaFileira);
             }
             else{
                 int corPecaNaFileira = pecaNaFileira.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaFileira != super.getCor()) {
-                    casasLegais.add(casaNaFileira);  //Como a peça é de outra cor, podemos capturar,
+                    super.casasLegais.add(casaNaFileira);  //Como a peça é de outra cor, podemos capturar,
                     arrayCorrespondente.add(casaNaFileira);
+
+                    if(pecaNaFileira instanceof Rei){
+                        ((Rei) pecaNaFileira).setIsInCheck(true);
+                        ((Rei) pecaNaFileira).incPecasAtacantes();
+
+                        for (idColuna = pecaNaFileira.getColuna() + 1; idColuna <= this.getColuna(); idColuna++){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
+                            casaNaFileira = Tabuleiro.getCasa(idColuna, super.getFileira()); //Casas que estão na mesma fileira.
+                            if(corPecaNaFileira == BRANCO){
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaFileira);
+                            }
+                            else{
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaFileira);
+                            }
+                        }
+                    }
                 }
                 break; //Caminho está bloqueado.
             }
@@ -74,15 +106,30 @@ public class Rainha extends Peca{
             Peca pecaNaColuna = casaNaColuna.getPeca(); //Peças que estão (ou não) nessas casas.
 
             if(pecaNaColuna == null) {
-                casasLegais.add(casaNaColuna); //Caminho está livre, logo é um movimento legal.
+                super.casasLegais.add(casaNaColuna); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaColuna);
             }
             else{
                 int corPecaNaColuna = pecaNaColuna.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaColuna != super.getCor()) {
-                    casasLegais.add(casaNaColuna);  //Como a peça é de outra cor, podemos capturar,
+                    super.casasLegais.add(casaNaColuna);  //Como a peça é de outra cor, podemos capturar,
                     arrayCorrespondente.add(casaNaColuna);
+
+                    if(pecaNaColuna instanceof Rei){
+                        ((Rei) pecaNaColuna).setIsInCheck(true);
+                        ((Rei) pecaNaColuna).incPecasAtacantes();
+
+                        for (idFileira = pecaNaColuna.getFileira() - 1; idFileira >= this.getFileira(); idFileira--){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
+                            casaNaColuna = Tabuleiro.getCasa(super.getColuna(), idFileira); //Casas que estão na mesma fileira.
+                            if(corPecaNaColuna == BRANCO){
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaColuna);
+                            }
+                            else{
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaColuna);
+                            }
+                        }
+                    }
                 }
                 break; //Caminho está bloqueado.
             }
@@ -96,20 +143,34 @@ public class Rainha extends Peca{
             Peca pecaNaColuna = casaNaColuna.getPeca(); //Peças que estão (ou não) nessas casas.
 
             if(pecaNaColuna == null) {
-                casasLegais.add(casaNaColuna); //Caminho está livre, logo é um movimento legal.
+                super.casasLegais.add(casaNaColuna); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaColuna);
             }
             else{
                 int corPecaNaColuna = pecaNaColuna.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaColuna != super.getCor()) {
-                    casasLegais.add(casaNaColuna);  //Como a peça é de outra cor, podemos capturar,
+                    super.casasLegais.add(casaNaColuna);  //Como a peça é de outra cor, podemos capturar,
                     arrayCorrespondente.add(casaNaColuna);
+
+                    if(pecaNaColuna instanceof Rei){
+                        ((Rei) pecaNaColuna).setIsInCheck(true);
+                        ((Rei) pecaNaColuna).incPecasAtacantes();
+
+                        for (idFileira = pecaNaColuna.getFileira() + 1; idFileira <= this.getColuna(); idFileira++){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
+                            casaNaColuna = Tabuleiro.getCasa(super.getColuna(), idFileira); //Casas que estão na mesma fileira.
+                            if(corPecaNaColuna == BRANCO){
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaColuna);
+                            }
+                            else{
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaColuna);
+                            }
+                        }
+                    }
                 }
                 break; //Caminho está bloqueado.
             }
         }
-
 
         //Movimentos Diagonais:
 
@@ -124,15 +185,32 @@ public class Rainha extends Peca{
             Peca pecaNaDiagonal = casaNaDiagonal.getPeca(); //Peças que estão (ou não) nessas casas.
 
             if(pecaNaDiagonal == null){
-                casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
+                super.casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaDiagonal);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaDiagonal != super.getCor()) {
-                    casasLegais.add(casaNaDiagonal); //Como a peça é de outra cor, podemos capturar,
+                    super.casasLegais.add(casaNaDiagonal); //Como a peça é de outra cor, podemos capturar,
                     arrayCorrespondente.add(casaNaDiagonal);
+
+                    if(pecaNaDiagonal instanceof Rei){
+                        ((Rei) pecaNaDiagonal).setIsInCheck(true);
+                        ((Rei) pecaNaDiagonal).incPecasAtacantes();
+
+                        idColuna  = pecaNaDiagonal.getColuna()  - 1;
+                        idFileira = pecaNaDiagonal.getFileira() - 1;
+                        for( ; ((idColuna >= this.getColuna()) && (idFileira >= this.getFileira())); idColuna--, idFileira--){
+                            casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira.
+                            if(corPecaNaDiagonal == BRANCO){
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonal);
+                            }
+                            else{
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonal);
+                            }
+                        }
+                    }
                 }
                 break;  //Caminho está bloqueado.
             }
@@ -150,15 +228,32 @@ public class Rainha extends Peca{
             Peca pecaNaDiagonal = casaNaDiagonal.getPeca(); //Peças que estão (ou não) nessas casas.
 
             if(pecaNaDiagonal == null){
-                casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
+                super.casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaDiagonal);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaDiagonal != super.getCor()) {
-                    casasLegais.add(casaNaDiagonal); //Como a peça é de outra cor, podemos capturar,
+                    super.casasLegais.add(casaNaDiagonal); //Como a peça é de outra cor, podemos capturar,
                     arrayCorrespondente.add(casaNaDiagonal);
+
+                    if(pecaNaDiagonal instanceof Rei){
+                        ((Rei) pecaNaDiagonal).setIsInCheck(true);
+                        ((Rei) pecaNaDiagonal).incPecasAtacantes();
+
+                        idColuna  = pecaNaDiagonal.getColuna()  + 1;
+                        idFileira = pecaNaDiagonal.getFileira() - 1;
+                        for( ; ((idColuna <= this.getColuna()) && (idFileira >= this.getFileira())); idColuna++, idFileira--){
+                            casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira.
+                            if(corPecaNaDiagonal == BRANCO){
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonal);
+                            }
+                            else{
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonal);
+                            }
+                        }
+                    }
                 }
                 break;  //Caminho está bloqueado.
             }
@@ -176,15 +271,32 @@ public class Rainha extends Peca{
             Peca pecaNaDiagonal = casaNaDiagonal.getPeca(); //Peças que estão (ou não) nessas casas.
 
             if(pecaNaDiagonal == null){
-                casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
+                super.casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaDiagonal);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaDiagonal != super.getCor()) {
-                    casasLegais.add(casaNaDiagonal); //Como a peça é de outra cor, podemos capturar,
+                    super.casasLegais.add(casaNaDiagonal); //Como a peça é de outra cor, podemos capturar,
                     arrayCorrespondente.add(casaNaDiagonal);
+
+                    if(pecaNaDiagonal instanceof Rei){
+                        ((Rei) pecaNaDiagonal).setIsInCheck(true);
+                        ((Rei) pecaNaDiagonal).incPecasAtacantes();
+
+                        idColuna  = pecaNaDiagonal.getColuna()  + 1;
+                        idFileira = pecaNaDiagonal.getFileira() + 1;
+                        for( ; ((idColuna <= this.getColuna()) && (idFileira <= this.getFileira())); idColuna++, idFileira++){
+                            casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira e coluna.
+                            if(corPecaNaDiagonal == BRANCO){
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonal);
+                            }
+                            else{
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonal);
+                            }
+                        }
+                    }
                 }
                 break;  //Caminho está bloqueado.
             }
@@ -202,22 +314,35 @@ public class Rainha extends Peca{
             Peca pecaNaDiagonal = casaNaDiagonal.getPeca(); //Peças que estão (ou não) nessas casas.
 
             if(pecaNaDiagonal == null){
-                casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
+                super.casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaDiagonal);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
 
                 if (corPecaNaDiagonal != super.getCor()) {
-                    casasLegais.add(casaNaDiagonal); //Como a peça é de outra cor, podemos capturar,
+                    super.casasLegais.add(casaNaDiagonal); //Como a peça é de outra cor, podemos capturar,
                     arrayCorrespondente.add(casaNaDiagonal);
+
+                    if(pecaNaDiagonal instanceof Rei){
+                        ((Rei) pecaNaDiagonal).setIsInCheck(true);
+                        ((Rei) pecaNaDiagonal).incPecasAtacantes();
+
+                        idColuna  = pecaNaDiagonal.getColuna()  - 1;
+                        idFileira = pecaNaDiagonal.getFileira() + 1;
+                        for( ; ((idColuna >= this.getColuna()) && (idFileira <= this.getFileira())); idColuna--, idFileira++){
+                            casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira e coluna.
+                            if(corPecaNaDiagonal == BRANCO){
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonal);
+                            }
+                            else{
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonal);
+                            }
+                        }
+                    }
                 }
                 break;  //Caminho está bloqueado.
             }
         }
-    }
-    @Override
-    public ArrayList<Casa> getCasasLegais() {
-        return casasLegais;
     }
 }

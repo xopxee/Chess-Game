@@ -5,22 +5,33 @@ import Tabuleiro.Tabuleiro;
 
 import java.util.ArrayList;
 
+import static Tabuleiro.Casa.BY_BLACK;
+import static Tabuleiro.Casa.BY_WHITE;
 import static Tabuleiro.Tabuleiro.*;
 
 public class Rei extends Peca {
-    private ArrayList<Casa> casasLegais = new ArrayList<>(10);
-    private ArrayList<Peca> pecasAtacantes = new ArrayList<>(2);
+    private int pecasAtacantes = 0;
     private boolean isInCheck = false;
 
     public Rei(int coluna, int fileira, int cor){
         super(coluna, fileira, cor);
         super.tipo = (super.cor == BRANCO) ? '♚' : '♔';
+        super.casasLegais = new ArrayList<>(10);
+
+        if(super.cor == BRANCO){
+            setReiBranco(this);
+        }
+        else{
+            setReiPreto(this);
+        }
     }
 
     @Override
     public void setCasasLegais() {
-        casasLegais.clear();
-        ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasBrancasLegais : casasPretasLegais;
+        super.casasLegais.clear();
+        ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasLegaisPecasBrancas : casasLegaisPecasPretas;
+
+        int byCorAtual = (super.getCor() == BRANCO)? BY_WHITE : BY_BLACK;
 
         // Movimentos para direita
         int idColuna = super.getColuna() + 1;
@@ -29,14 +40,15 @@ public class Rei extends Peca {
             Peca pecaNaFileira = casaNaFileira.getPeca();
 
             if (pecaNaFileira == null) {
-                casasLegais.add(casaNaFileira);
+                super.casasLegais.add(casaNaFileira);
                 arrayCorrespondente.add(casaNaFileira);
             } else {
                 if (pecaNaFileira.getCor() != super.getCor()) {
-                    casasLegais.add(casaNaFileira);
+                    super.casasLegais.add(casaNaFileira);
                     arrayCorrespondente.add(casaNaFileira);
                 }
             }
+            casaNaFileira.setAtacked(byCorAtual);
         }
 
         // Movimentos para esquerda
@@ -46,14 +58,15 @@ public class Rei extends Peca {
             Peca pecaNaFileira = casaNaFileira.getPeca();
 
             if (pecaNaFileira == null) {
-                casasLegais.add(casaNaFileira);
+                super.casasLegais.add(casaNaFileira);
                 arrayCorrespondente.add(casaNaFileira);
             } else {
                 if (pecaNaFileira.getCor() != super.getCor()) {
-                    casasLegais.add(casaNaFileira);
+                    super.casasLegais.add(casaNaFileira);
                     arrayCorrespondente.add(casaNaFileira);
                 }
             }
+            casaNaFileira.setAtacked(byCorAtual);
         }
 
         // Movimentos para cima
@@ -63,14 +76,15 @@ public class Rei extends Peca {
             Peca pecaNaColuna = casaNaColuna.getPeca();
 
             if (pecaNaColuna == null) {
-                casasLegais.add(casaNaColuna);
+                super.casasLegais.add(casaNaColuna);
                 arrayCorrespondente.add(casaNaColuna);
             } else {
                 if (pecaNaColuna.getCor() != super.getCor()) {
-                    casasLegais.add(casaNaColuna);
+                    super.casasLegais.add(casaNaColuna);
                     arrayCorrespondente.add(casaNaColuna);
                 }
             }
+            casaNaColuna.setAtacked(byCorAtual);
         }
 
         // Movimentos para baixo
@@ -80,14 +94,15 @@ public class Rei extends Peca {
             Peca pecaNaColuna = casaNaColuna.getPeca();
 
             if (pecaNaColuna == null) {
-                casasLegais.add(casaNaColuna);
+                super.casasLegais.add(casaNaColuna);
                 arrayCorrespondente.add(casaNaColuna);
             } else {
                 if (pecaNaColuna.getCor() != super.getCor()) {
-                    casasLegais.add(casaNaColuna);
+                    super.casasLegais.add(casaNaColuna);
                     arrayCorrespondente.add(casaNaColuna);
                 }
             }
+            casaNaColuna.setAtacked(byCorAtual);
         }
 
         // Movimento para diagonal direita superior
@@ -98,14 +113,15 @@ public class Rei extends Peca {
             Peca pecaNaDiagonal = casaNaDiagonal.getPeca();
 
             if (pecaNaDiagonal == null) {
-                casasLegais.add(casaNaDiagonal);
+                super.casasLegais.add(casaNaDiagonal);
                 arrayCorrespondente.add(casaNaDiagonal);
             } else {
                 if (pecaNaDiagonal.getCor() != super.getCor()) {
-                    casasLegais.add(casaNaDiagonal);
+                    super.casasLegais.add(casaNaDiagonal);
                     arrayCorrespondente.add(casaNaDiagonal);
                 }
             }
+            casaNaDiagonal.setAtacked(byCorAtual);
         }
 
         // Movimento para diagonal esquerda superior
@@ -116,14 +132,15 @@ public class Rei extends Peca {
             Peca pecaNaDiagonal = casaNaDiagonal.getPeca();
 
             if (pecaNaDiagonal == null) {
-                casasLegais.add(casaNaDiagonal);
+                super.casasLegais.add(casaNaDiagonal);
                 arrayCorrespondente.add(casaNaDiagonal);
             } else {
                 if (pecaNaDiagonal.getCor() != super.getCor()) {
-                    casasLegais.add(casaNaDiagonal);
+                    super.casasLegais.add(casaNaDiagonal);
                     arrayCorrespondente.add(casaNaDiagonal);
                 }
             }
+            casaNaDiagonal.setAtacked(byCorAtual);
         }
 
         // Movimento para diagonal esquerda inferior
@@ -134,14 +151,15 @@ public class Rei extends Peca {
             Peca pecaNaDiagonal = casaNaDiagonal.getPeca();
 
             if (pecaNaDiagonal == null) {
-                casasLegais.add(casaNaDiagonal);
+                super.casasLegais.add(casaNaDiagonal);
                 arrayCorrespondente.add(casaNaDiagonal);
             } else {
                 if (pecaNaDiagonal.getCor() != super.getCor()) {
-                    casasLegais.add(casaNaDiagonal);
+                    super.casasLegais.add(casaNaDiagonal);
                     arrayCorrespondente.add(casaNaDiagonal);
                 }
             }
+            casaNaDiagonal.setAtacked(byCorAtual);
         }
 
         // Movimento para diagonal direita inferior
@@ -152,19 +170,58 @@ public class Rei extends Peca {
             Peca pecaNaDiagonal = casaNaDiagonal.getPeca();
 
             if (pecaNaDiagonal == null) {
-                casasLegais.add(casaNaDiagonal);
+                super.casasLegais.add(casaNaDiagonal);
                 arrayCorrespondente.add(casaNaDiagonal);
             } else {
                 if (pecaNaDiagonal.getCor() != super.getCor()) {
-                    casasLegais.add(casaNaDiagonal);
+                    super.casasLegais.add(casaNaDiagonal);
                     arrayCorrespondente.add(casaNaDiagonal);
                 }
             }
+            casaNaDiagonal.setAtacked(byCorAtual);
         }
     }
 
     @Override
-    public ArrayList<Casa> getCasasLegais() {
-        return casasLegais;
+    public void filtrarCasasLegais(){
+        int byCorInimiga = (super.getCor() == BRANCO)? BY_BLACK : BY_WHITE;
+
+        ArrayList<Casa> temp = new ArrayList<>();
+        for(Casa casa : super.casasLegais ){
+            if(casa.isAtacked() != byCorInimiga){
+                temp.add(casa);
+            }
+        }
+        super.casasLegais.clear(); //Esvazia as casas legais,
+        super.casasLegais = temp;  //e troca pela interseção encontrada.
+    }
+
+    public void setIsInCheck(boolean isInCheck){
+        this.isInCheck = isInCheck;
+    }
+
+    public boolean isInCheck() {
+        ArrayList<Casa> casasInimigas = (this.getCor() == BRANCO)? casasLegaisPecasPretas : casasLegaisPecasBrancas;
+
+        setIsInCheck(false);
+        for(Casa casa : casasInimigas){
+            if(casa == this.getCasa()){
+                setIsInCheck(true);
+                break;
+            }
+        }
+
+        return isInCheck;
+    }
+
+    public int getPecasAtacantes() {
+        return pecasAtacantes;
+    }
+
+    public void setPecasAtacantes(int pecasAtacantes) {
+        this.pecasAtacantes = pecasAtacantes;
+    }
+    public void incPecasAtacantes() {
+        this.pecasAtacantes++;
     }
 }

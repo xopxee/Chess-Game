@@ -5,20 +5,24 @@ import Tabuleiro.Tabuleiro;
 
 import java.util.ArrayList;
 
+import static Tabuleiro.Casa.BY_BLACK;
+import static Tabuleiro.Casa.BY_WHITE;
 import static Tabuleiro.Tabuleiro.*;
 
 public class Cavalo extends Peca{
-    private ArrayList<Casa> casasLegais = new ArrayList<>(8);
 
     public Cavalo(int coluna, int fileira, int cor){
         super(coluna, fileira, cor);
         super.tipo = (super.cor == BRANCO) ? '♞' : '♘';  //notação em inglês (Knight).
+        super.casasLegais = new ArrayList<>(8);
     }
 
     @Override
     public void setCasasLegais() {
         casasLegais.clear();
-        ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasBrancasLegais : casasPretasLegais;
+        ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasLegaisPecasBrancas : casasLegaisPecasPretas;
+
+        int byCorAtual = (super.getCor() == BRANCO)? BY_WHITE : BY_BLACK;
 
         final int umaDireita  = super.getColuna() + 1;
         final int duasDireita = super.getColuna() + 2;
@@ -45,8 +49,13 @@ public class Cavalo extends Peca{
                 if (corPecaNaCasa != super.getCor()) {
                     casasLegais.add(casaTeste);
                     arrayCorrespondente.add(casaTeste);
+                    if(pecaNaCasa instanceof Rei){
+                        ((Rei) pecaNaCasa).setIsInCheck(true);
+                        ((Rei) pecaNaCasa).incPecasAtacantes();
+                    }
                 }
             }
+            casaTeste.setAtacked(byCorAtual);
         }
 
         if(duasDireita < COLUNAS && umaCima < FILEIRAS) {
@@ -61,8 +70,13 @@ public class Cavalo extends Peca{
                 if (corPecaNaCasa != super.getCor()) {
                     casasLegais.add(casaTeste);
                     arrayCorrespondente.add(casaTeste);
+                    if(pecaNaCasa instanceof Rei){
+                        ((Rei) pecaNaCasa).setIsInCheck(true);
+                        ((Rei) pecaNaCasa).incPecasAtacantes();
+                    }
                 }
             }
+            casaTeste.setAtacked(byCorAtual);
         }
 
         if(duasEsquerda >= 0 && umaCima < FILEIRAS) {
@@ -77,8 +91,13 @@ public class Cavalo extends Peca{
                 if (corPecaNaCasa != super.getCor()) {
                     casasLegais.add(casaTeste);
                     arrayCorrespondente.add(casaTeste);
+                    if(pecaNaCasa instanceof Rei){
+                        ((Rei) pecaNaCasa).setIsInCheck(true);
+                        ((Rei) pecaNaCasa).incPecasAtacantes();
+                    }
                 }
             }
+            casaTeste.setAtacked(byCorAtual);
         }
 
         if(umaEsquerda >= 0 && duasCima < FILEIRAS) {
@@ -93,8 +112,13 @@ public class Cavalo extends Peca{
                 if (corPecaNaCasa != super.getCor()) {
                     casasLegais.add(casaTeste);
                     arrayCorrespondente.add(casaTeste);
+                    if(pecaNaCasa instanceof Rei){
+                        ((Rei) pecaNaCasa).setIsInCheck(true);
+                        ((Rei) pecaNaCasa).incPecasAtacantes();
+                    }
                 }
             }
+            casaTeste.setAtacked(byCorAtual);
         }
 
         if(duasEsquerda >= 0 && umaBaixo >= 0) {
@@ -109,8 +133,13 @@ public class Cavalo extends Peca{
                 if (corPecaNaCasa != super.getCor()) {
                     casasLegais.add(casaTeste);
                     arrayCorrespondente.add(casaTeste);
+                    if(pecaNaCasa instanceof Rei){
+                        ((Rei) pecaNaCasa).setIsInCheck(true);
+                        ((Rei) pecaNaCasa).incPecasAtacantes();
+                    }
                 }
             }
+            casaTeste.setAtacked(byCorAtual);
         }
 
         if(umaEsquerda >= 0 && duasBaixo >= 0) {
@@ -125,8 +154,13 @@ public class Cavalo extends Peca{
                 if (corPecaNaCasa != super.getCor()) {
                     casasLegais.add(casaTeste);
                     arrayCorrespondente.add(casaTeste);
+                    if(pecaNaCasa instanceof Rei){
+                        ((Rei) pecaNaCasa).setIsInCheck(true);
+                        ((Rei) pecaNaCasa).incPecasAtacantes();
+                    }
                 }
             }
+            casaTeste.setAtacked(byCorAtual);
         }
 
         if(umaDireita < COLUNAS && duasBaixo >= 0) {
@@ -141,8 +175,13 @@ public class Cavalo extends Peca{
                 if (corPecaNaCasa != super.getCor()) {
                     casasLegais.add(casaTeste);
                     arrayCorrespondente.add(casaTeste);
+                    if(pecaNaCasa instanceof Rei){
+                        ((Rei) pecaNaCasa).setIsInCheck(true);
+                        ((Rei) pecaNaCasa).incPecasAtacantes();
+                    }
                 }
             }
+            casaTeste.setAtacked(byCorAtual);
         }
 
         if(duasDireita < COLUNAS && umaBaixo >= 0) {
@@ -157,13 +196,13 @@ public class Cavalo extends Peca{
                 if (corPecaNaCasa != super.getCor()) {
                     casasLegais.add(casaTeste);
                     arrayCorrespondente.add(casaTeste);
+                    if(pecaNaCasa instanceof Rei){
+                        ((Rei) pecaNaCasa).setIsInCheck(true);
+                        ((Rei) pecaNaCasa).incPecasAtacantes();
+                    }
                 }
             }
+            casaTeste.setAtacked(byCorAtual);
         }
-    }
-
-    @Override
-    public ArrayList<Casa> getCasasLegais() {
-        return casasLegais;
     }
 }
