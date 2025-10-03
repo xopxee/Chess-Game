@@ -5,18 +5,18 @@ import Tabuleiro.Tabuleiro;
 
 import java.util.ArrayList;
 
+import static Tabuleiro.Casa.BY_BLACK;
+import static Tabuleiro.Casa.BY_WHITE;
 import static Tabuleiro.Tabuleiro.*;
 
-//DELETAR A PEÇA CAPTURADA PELO EN PASSANT!!!
-
 public class Peao extends Peca{
-    private ArrayList<Casa> casasLegais = new ArrayList<>(4);
     private int jogadaDuasCasas = -13;
     private Peao alvoEnPassant = null;
 
     public Peao(int coluna, int fileira, int cor){
         super(coluna, fileira, cor);
         super.tipo = (super.cor == BRANCO) ? '♟' : '♙';  //notação em inglês (Pawn).
+        super.casasLegais = new ArrayList<>(4);
     }
 
     public void setJogadaDuasCasas(int jogadaDuasCasas) {
@@ -32,10 +32,12 @@ public class Peao extends Peca{
 
     @Override
     public void setCasasLegais() {
-        casasLegais.clear();
+        super.casasLegais.clear();
         this.alvoEnPassant = null;
 
-        ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasBrancasLegais : casasPretasLegais;
+        ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasLegaisPecasBrancas : casasLegaisPecasPretas;
+
+        int byCorAtual = (super.getCor() == BRANCO)? BY_WHITE : BY_BLACK;
 
         final int umaDireita = super.getColuna() + 1;
         final int umaEsquerda = super.getColuna() - 1;
@@ -68,7 +70,7 @@ public class Peao extends Peca{
         pecaNaCasa = casaTeste.getPeca(); //Peça que está (ou não) nessa casa.
 
         if(pecaNaCasa == null){
-            casasLegais.add(casaTeste); //A casa está livre, logo é um movimento legal.
+            super.casasLegais.add(casaTeste); //A casa está livre, logo é um movimento legal.
             arrayCorrespondente.add(casaTeste);
         }
         else{
@@ -82,7 +84,7 @@ public class Peao extends Peca{
             pecaNaCasa = casaTeste.getPeca(); //Peça que está (ou não) nessa casa.
 
             if (pecaNaCasa == null) {
-                casasLegais.add(casaTeste); //A casa está livre, logo é um movimento legal.
+                super.casasLegais.add(casaTeste); //A casa está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaTeste);
             }
         }
@@ -97,10 +99,16 @@ public class Peao extends Peca{
                 int corPecaNaCasa = pecaNaCasa.getCor();
 
                 if (corPecaNaCasa != super.getCor()) {
-                    casasLegais.add(casaTeste); //Peça inimiga em posição de captura.
+                    super.casasLegais.add(casaTeste); //Peça inimiga em posição de captura.
                     arrayCorrespondente.add(casaTeste);
+
+                    if(pecaNaCasa instanceof Rei){
+                        ((Rei) pecaNaCasa).setIsInCheck(true);
+                        ((Rei) pecaNaCasa).incPecasAtacantes();
+                    }
                 }
             }
+            casaTeste.setAtacked(byCorAtual);
         }
 
         if(this.getColuna() > COLUNA_A) {
@@ -113,11 +121,16 @@ public class Peao extends Peca{
                 int corPecaNaCasa = pecaNaCasa.getCor();
 
                 if (corPecaNaCasa != super.getCor()) {
-                    casasLegais.add(casaTeste); //Peça inimiga em posição de captura.
+                    super.casasLegais.add(casaTeste); //Peça inimiga em posição de captura.
                     arrayCorrespondente.add(casaTeste);
+
+                    if(pecaNaCasa instanceof Rei){
+                        ((Rei) pecaNaCasa).setIsInCheck(true);
+                        ((Rei) pecaNaCasa).incPecasAtacantes();
+                    }
                 }
             }
-
+            casaTeste.setAtacked(byCorAtual);
         }
 
         //EN PASSANT
@@ -138,11 +151,12 @@ public class Peao extends Peca{
                     if (((Peao) pecaNaCasa).getJogadaDuasCasas() == Tabuleiro.getJogadas() - 1) {
                         if (corPecaNaCasa != super.getCor()) {
                             this.alvoEnPassant = ((Peao) pecaNaCasa);
-                            casasLegais.add(casaCaptura); //Peão inimigo em posição de captura.
+                            super.casasLegais.add(casaCaptura); //Peão inimigo em posição de captura.
                             arrayCorrespondente.add(casaCaptura);
                         }
                     }
                 }
+                casaTeste.setAtacked(byCorAtual);
             }
         }
 
@@ -160,19 +174,13 @@ public class Peao extends Peca{
                     if (((Peao) pecaNaCasa).getJogadaDuasCasas() == Tabuleiro.getJogadas() - 1) {
                         if (corPecaNaCasa != super.getCor()) {
                             this.alvoEnPassant = ((Peao) pecaNaCasa);
-                            casasLegais.add(casaCaptura); //Peão inimigo em posição de captura.
+                            super.casasLegais.add(casaCaptura); //Peão inimigo em posição de captura.
                             arrayCorrespondente.add(casaCaptura);
                         }
                     }
                 }
+                casaTeste.setAtacked(byCorAtual);
             }
         }
-
-
-    }
-
-    @Override
-    public ArrayList<Casa> getCasasLegais() {
-        return casasLegais;
     }
 }

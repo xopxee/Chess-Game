@@ -8,12 +8,37 @@ public class Main{
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        Tabuleiro.criarCasas();
-        Tabuleiro.preencherCasasToString();
-        lerFEN(FEN_POS_INICIAL);
-        imprimirBranco();
+        criarCasas();
+        preencherCasasToString();
+        lerFEN("r1bq3r/1p3p1k/p3pbp1/7P/3n4/7R/P1B2PP1/2BQ1RK1");
+        //lerFEN(FEN_POS_INICIAL);
+        imprimirPreto();
 
         while(true) {
+            int turno = getJogadas();
+
+            clearCasasLegais();           //Esvazia as casas legais antes de analisar novamente.
+            clearCasasDeBloqueio();       //Esvazia as casas de bloqueio antes de analisar novamente.
+            resetPecasAtacantes();        //Zera a contagem das peças que estão atacando o rei.
+            refreshIsAtacked();
+
+            refreshCasasLegais();         //Analisa as casas legais de todas as peças do tabuleiro.
+            refreshIsInCheck();           //Verifica se os reis estão em cheque.
+            refreshFiltroCasasLegais();   //Filtra a interseção entre casas legais e as casas de bloqueio.
+            uniteCasasLegais();
+
+            System.out.println(getReiPreto().isInCheck());
+            System.out.println(getReiPreto().getPecasAtacantes());
+            for(Casa casa : casasLegaisPecasBrancas){
+                System.out.print(casa.posString() + " ");
+            }
+            System.out.println("Peças brancas ^");
+
+            for(Casa casa : casasLegaisPecasPretas){
+                System.out.print(casa.posString() + " ");
+            }
+            System.out.println("Peças pretas ^");
+
             System.out.println("\n");
 
             System.out.println("Digite a casa de origem: ");
@@ -22,7 +47,7 @@ public class Main{
                 origem = sc.nextLine();
 
                 if(casasToString.contains(origem)){
-                    break;
+                    break; //Só aceita a entrada se a casa de origem existir
                 }
             }
 

@@ -6,6 +6,10 @@ public class Casa {
     private int[] pos = new int[2];
     private int cor; //0 - branco e 1 - preto
     private Peca peca;
+    private int isAtacked;
+    
+    public static final int BY_WHITE = 1;
+    public static final int BY_BLACK = 2;
 
     private static final int X = 0;
     private static final int Y = 1;
@@ -15,6 +19,7 @@ public class Casa {
         this.pos[Y] = fileira;
         this.cor = cor;
         this.peca = null;           //A casa é criada vazia, e apenas troca de estado dentro do escopo do objeto Peça.
+        this.isAtacked = 0;
     }
 
     public int[] getPos() {
@@ -76,7 +81,14 @@ public class Casa {
 
         int fileiraCorrigida = this.getFileira() + 1;
 
-        return "Casa: "+notacaoColuna+fileiraCorrigida;
+        return ""+notacaoColuna+fileiraCorrigida;
     }
 
+    public int isAtacked() {
+        return isAtacked;
+    }
+
+    public void setAtacked(int atacked) {
+        isAtacked = atacked;
+    }
 }

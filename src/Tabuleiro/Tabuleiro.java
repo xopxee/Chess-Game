@@ -5,15 +5,6 @@ import pecas.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
-    if(Rei.getCheck() == true){
-        while(pecascasaslegais.contains(Rei.getCasa())){
-            num vai
-        }
-    }
- */
-
-
 public class Tabuleiro {
 
     public static final int COLUNAS = 8;
@@ -146,8 +137,17 @@ public class Tabuleiro {
     private static Casa[][] casas = new Casa[COLUNAS][FILEIRAS];
     private static ArrayList<Peca> pecasNoTabuleiro = new ArrayList<>(32);
 
-    public static ArrayList<Casa> casasBrancasLegais = new ArrayList<>(32);
-    public static ArrayList<Casa> casasPretasLegais = new ArrayList<>(32);
+    private static Rei reiBranco;
+    private static Rei reiPreto;
+
+    public static ArrayList<Casa> casasLegaisPecasBrancas = new ArrayList<>(64);
+    public static ArrayList<Casa> casasLegaisPecasPretas = new ArrayList<>(64);
+
+    //public static ArrayList<Casa> casasAtacadasPecasBrancas = new ArrayList<>(64);
+    //public static ArrayList<Casa> casasAtacadasPecasPretas = new ArrayList<>(64);
+
+    public static ArrayList<Casa> casasDeBloqueioBrancas = new ArrayList<>(32);
+    public static ArrayList<Casa> casasDeBloqueioPretas = new ArrayList<>(32);
 
     public static final String FEN_POS_INICIAL = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
 
@@ -191,9 +191,9 @@ public class Tabuleiro {
                 if(idColuna == COLUNA_A) {
                     if (pecaNaCasa != null) {
                         char charPeca = pecaNaCasa.getTipo();
-                        System.out.print((idFileira + 1) +"[" + charPeca + ",");
+                        System.out.print((idFileira + 1) + "[" + charPeca + "|");
                     } else {
-                        System.out.print((idFileira + 1) +"[ㅤ,");
+                        System.out.print((idFileira + 1) + "[ㅤ|");
                     }
                 } else if (idColuna == COLUNA_H) {
                     if (pecaNaCasa != null) {
@@ -206,9 +206,9 @@ public class Tabuleiro {
                 else{
                     if (pecaNaCasa != null) {
                         char charPeca = pecaNaCasa.getTipo();
-                        System.out.print(charPeca + ",");
+                        System.out.print(charPeca + "|");
                     } else {
-                        System.out.print("ㅤ,");
+                        System.out.print("ㅤ|");
                     }
                 }
             }
@@ -227,9 +227,9 @@ public class Tabuleiro {
                 if(idColuna == COLUNA_H) {
                     if (pecaNaCasa != null) {
                         char charPeca = pecaNaCasa.getTipo();
-                        System.out.print((idFileira + 1) +"[" + charPeca + ",");
+                        System.out.print((idFileira + 1) + "[" + charPeca + "|");
                     } else {
-                        System.out.print((idFileira + 1) +"[ㅤ,");
+                        System.out.print((idFileira + 1) + "[ㅤ|");
                     }
                 } else if (idColuna == COLUNA_A) {
                     if (pecaNaCasa != null) {
@@ -242,9 +242,9 @@ public class Tabuleiro {
                 else{
                     if (pecaNaCasa != null) {
                         char charPeca = pecaNaCasa.getTipo();
-                        System.out.print(charPeca + ",");
+                        System.out.print(charPeca + "|");
                     } else {
-                        System.out.print("ㅤ,");
+                        System.out.print("ㅤ|");
                     }
                 }
             }
@@ -420,6 +420,59 @@ public class Tabuleiro {
         System.out.println();
     }
 
+    public static void refreshCasasLegais() {
+        for (Peca p : pecasNoTabuleiro) {
+            p.setCasasLegais();
+        }
+    }
+
+    public static void uniteCasasLegais() {
+        casasLegaisPecasBrancas.clear();
+        casasLegaisPecasPretas.clear();
+
+        for (Peca p : pecasNoTabuleiro) {
+            if (p.getCor() == BRANCO) {
+                casasLegaisPecasBrancas.addAll(p.getCasasLegais());
+            } else {
+                casasLegaisPecasPretas.addAll(p.getCasasLegais());
+            }
+        }
+    }
+
+    public static void refreshFiltroCasasLegais() {
+        for (Peca p : pecasNoTabuleiro) {
+            p.filtrarCasasLegais();
+        }
+    }
+
+    public static void clearCasasDeBloqueio() {
+        casasDeBloqueioBrancas.clear();
+        casasDeBloqueioPretas.clear();
+    }
+
+    public static void clearCasasLegais() {
+        casasLegaisPecasBrancas.clear();
+        casasLegaisPecasPretas.clear();
+    }
+
+    public static void refreshIsInCheck() {
+        reiBranco.isInCheck();
+        reiPreto.isInCheck();
+    }
+
+    public static void refreshIsAtacked(){
+        for (int idColuna = 0; idColuna < COLUNAS; idColuna++) {
+            for (int idFileira = 0; idFileira < FILEIRAS; idFileira++) {
+                getCasa(idColuna, idFileira).setAtacked(0);
+            }
+        }
+    }
+
+    public static void resetPecasAtacantes() {
+        reiBranco.setPecasAtacantes(0);
+        reiPreto.setPecasAtacantes(0);
+    }
+
     public static void moverPeca(int colOrigem, int filOrigem, int colDestino, int filDestino) {
         Scanner sc = new Scanner(System.in);
 
@@ -429,8 +482,6 @@ public class Tabuleiro {
         Peca peca = casaOrigem.getPeca();
         Peca pecaCasaDestino = casaDestino.getPeca();
 
-        peca.setCasasLegais();
-
         boolean movimentoLegal = peca.getCasasLegais().contains(casaDestino);
         if (movimentoLegal) { //Se é um movimento legal...
             peca.setPos(colDestino, filDestino); //Mova a peça para a casa desejada,
@@ -439,8 +490,6 @@ public class Tabuleiro {
             casaDestino.setPeca(peca); //Guarde a instância da peça na casa nova.
 
             casaOrigem.setPeca(null); //Esvazie a casa antiga.
-
-            virar();                  //Vire o tabuleiro.
 
             if (peca instanceof Peao) {
                 //EN PASSANT
@@ -501,6 +550,8 @@ public class Tabuleiro {
 
             }
             jogadas++;
+            imprimirCorAtual();
+            //virar();                  //Vire o tabuleiro.
 
         } else{
             System.out.println("Movimento ilegal!");
@@ -515,6 +566,20 @@ public class Tabuleiro {
 
     public static ArrayList<Peca> getPecasNoTabuleiro(){
         return pecasNoTabuleiro;
+    }
+
+    public static Rei getReiPreto() {
+        return reiPreto;
+    }
+    public static void setReiBranco(Rei reiBranco) {
+        Tabuleiro.reiBranco = reiBranco;
+    }
+
+    public static void setReiPreto(Rei reiPreto) {
+        Tabuleiro.reiPreto = reiPreto;
+    }
+    public static Rei getReiBranco() {
+        return reiBranco;
     }
 }
 
