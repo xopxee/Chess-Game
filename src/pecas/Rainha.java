@@ -5,6 +5,8 @@ import Tabuleiro.Tabuleiro;
 
 import java.util.ArrayList;
 
+import static Tabuleiro.Casa.BY_BLACK;
+import static Tabuleiro.Casa.BY_WHITE;
 import static Tabuleiro.Tabuleiro.*;
 
 public class Rainha extends Peca{
@@ -34,6 +36,7 @@ public class Rainha extends Peca{
             if(pecaNaFileira == null) {
                 super.casasLegais.add(casaNaFileira); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaFileira);
+                casaNaFileira.setAtacked(byCorAtual);
             }
             else{
                 int corPecaNaFileira = pecaNaFileira.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
@@ -46,6 +49,10 @@ public class Rainha extends Peca{
                         ((Rei) pecaNaFileira).setIsInCheck(true);
                         ((Rei) pecaNaFileira).incPecasAtacantes();
 
+                        if(idColuna + 1 <= COLUNA_H){
+                            Tabuleiro.getCasa(idColuna + 1, super.getFileira()).setAtacked(byCorAtual);  //Adiciona a casa imediatamente a frente como atacked.
+                        }
+
                         for (idColuna = pecaNaFileira.getColuna() - 1; idColuna >= this.getColuna(); idColuna--){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
                             casaNaFileira = Tabuleiro.getCasa(idColuna, super.getFileira()); //Casas que estão na mesma fileira.
                             if(corPecaNaFileira == BRANCO){
@@ -57,6 +64,7 @@ public class Rainha extends Peca{
                         }
                     }
                 }
+                casaNaFileira.setAtacked(byCorAtual);
                 break; //Caminho está bloqueado.
             }
         }
@@ -71,6 +79,7 @@ public class Rainha extends Peca{
             if(pecaNaFileira == null) {
                 super.casasLegais.add(casaNaFileira); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaFileira);
+                casaNaFileira.setAtacked(byCorAtual);
             }
             else{
                 int corPecaNaFileira = pecaNaFileira.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
@@ -83,6 +92,10 @@ public class Rainha extends Peca{
                         ((Rei) pecaNaFileira).setIsInCheck(true);
                         ((Rei) pecaNaFileira).incPecasAtacantes();
 
+                        if(idColuna - 1 >= COLUNA_A){
+                            Tabuleiro.getCasa(idColuna - 1, super.getFileira()).setAtacked(byCorAtual);  //Adiciona a casa imediatamente a frente como atacked.
+                        }
+
                         for (idColuna = pecaNaFileira.getColuna() + 1; idColuna <= this.getColuna(); idColuna++){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
                             casaNaFileira = Tabuleiro.getCasa(idColuna, super.getFileira()); //Casas que estão na mesma fileira.
                             if(corPecaNaFileira == BRANCO){
@@ -94,6 +107,7 @@ public class Rainha extends Peca{
                         }
                     }
                 }
+                casaNaFileira.setAtacked(byCorAtual);
                 break; //Caminho está bloqueado.
             }
         }
@@ -108,6 +122,7 @@ public class Rainha extends Peca{
             if(pecaNaColuna == null) {
                 super.casasLegais.add(casaNaColuna); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaColuna);
+                casaNaColuna.setAtacked(byCorAtual);
             }
             else{
                 int corPecaNaColuna = pecaNaColuna.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
@@ -131,6 +146,7 @@ public class Rainha extends Peca{
                         }
                     }
                 }
+                casaNaColuna.setAtacked(byCorAtual);
                 break; //Caminho está bloqueado.
             }
         }
@@ -145,6 +161,7 @@ public class Rainha extends Peca{
             if(pecaNaColuna == null) {
                 super.casasLegais.add(casaNaColuna); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaColuna);
+                casaNaColuna.setAtacked(byCorAtual);
             }
             else{
                 int corPecaNaColuna = pecaNaColuna.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
@@ -157,7 +174,7 @@ public class Rainha extends Peca{
                         ((Rei) pecaNaColuna).setIsInCheck(true);
                         ((Rei) pecaNaColuna).incPecasAtacantes();
 
-                        for (idFileira = pecaNaColuna.getFileira() + 1; idFileira <= this.getColuna(); idFileira++){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
+                        for (idFileira = pecaNaColuna.getFileira() + 1; idFileira <= this.getFileira(); idFileira++){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
                             casaNaColuna = Tabuleiro.getCasa(super.getColuna(), idFileira); //Casas que estão na mesma fileira.
                             if(corPecaNaColuna == BRANCO){
                                 Tabuleiro.casasDeBloqueioBrancas.add(casaNaColuna);
@@ -187,6 +204,7 @@ public class Rainha extends Peca{
             if(pecaNaDiagonal == null){
                 super.casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaDiagonal);
+                casaNaDiagonal.setAtacked(byCorAtual);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
@@ -212,6 +230,7 @@ public class Rainha extends Peca{
                         }
                     }
                 }
+                casaNaDiagonal.setAtacked(byCorAtual);
                 break;  //Caminho está bloqueado.
             }
         }
@@ -230,6 +249,7 @@ public class Rainha extends Peca{
             if(pecaNaDiagonal == null){
                 super.casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaDiagonal);
+                casaNaDiagonal.setAtacked(byCorAtual);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
@@ -255,6 +275,7 @@ public class Rainha extends Peca{
                         }
                     }
                 }
+                casaNaDiagonal.setAtacked(byCorAtual);
                 break;  //Caminho está bloqueado.
             }
         }
@@ -273,6 +294,7 @@ public class Rainha extends Peca{
             if(pecaNaDiagonal == null){
                 super.casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaDiagonal);
+                casaNaDiagonal.setAtacked(byCorAtual);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
@@ -298,6 +320,7 @@ public class Rainha extends Peca{
                         }
                     }
                 }
+                casaNaDiagonal.setAtacked(byCorAtual);
                 break;  //Caminho está bloqueado.
             }
         }
@@ -316,6 +339,7 @@ public class Rainha extends Peca{
             if(pecaNaDiagonal == null){
                 super.casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaDiagonal);
+                casaNaDiagonal.setAtacked(byCorAtual);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
@@ -341,6 +365,7 @@ public class Rainha extends Peca{
                         }
                     }
                 }
+                casaNaDiagonal.setAtacked(byCorAtual);
                 break;  //Caminho está bloqueado.
             }
         }

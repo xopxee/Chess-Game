@@ -2,11 +2,13 @@ package Tabuleiro;
 
 import pecas.Peca;
 
+import java.util.ArrayList;
+
 public class Casa {
     private int[] pos = new int[2];
     private int cor; //0 - branco e 1 - preto
     private Peca peca;
-    private int isAtacked;
+    private ArrayList<Integer> isAtacked;
     
     public static final int BY_WHITE = 1;
     public static final int BY_BLACK = 2;
@@ -19,7 +21,7 @@ public class Casa {
         this.pos[Y] = fileira;
         this.cor = cor;
         this.peca = null;           //A casa é criada vazia, e apenas troca de estado dentro do escopo do objeto Peça.
-        this.isAtacked = 0;
+        this.isAtacked = new ArrayList<>(2);
     }
 
     public int[] getPos() {

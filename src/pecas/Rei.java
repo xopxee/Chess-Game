@@ -188,7 +188,7 @@ public class Rei extends Peca {
 
         ArrayList<Casa> temp = new ArrayList<>();
         for(Casa casa : super.casasLegais ){
-            if(casa.isAtacked() != byCorInimiga){
+            if(!casa.isAtacked().contains(byCorInimiga)){
                 temp.add(casa);
             }
         }

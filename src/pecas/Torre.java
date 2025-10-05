@@ -34,6 +34,7 @@ public class Torre extends Peca{
             if(pecaNaFileira == null) {
                 casasLegais.add(casaNaFileira); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaFileira);
+                casaNaFileira.setAtacked(byCorAtual);
             }
             else{
                 int corPecaNaFileira = pecaNaFileira.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
@@ -124,6 +125,10 @@ public class Torre extends Peca{
                         ((Rei) pecaNaColuna).setIsInCheck(true);
                         ((Rei) pecaNaColuna).incPecasAtacantes();
 
+                        if(idFileira + 1 <= OITAVA_FILEIRA){
+                            Tabuleiro.getCasa(super.getColuna(), idFileira + 1).setAtacked(byCorAtual);  //Adiciona a casa imediatamente a frente como atacked.
+                        }
+
                         for (idFileira = pecaNaColuna.getFileira() - 1; idFileira >= this.getFileira(); idFileira--){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
                             casaNaColuna = Tabuleiro.getCasa(super.getColuna(), idFileira); //Casas que estão na mesma fileira.
                             if(corPecaNaColuna == BRANCO){
@@ -150,6 +155,8 @@ public class Torre extends Peca{
             if(pecaNaColuna == null) {
                 casasLegais.add(casaNaColuna); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaColuna);
+
+                casaNaColuna.setAtacked(byCorAtual);casaNaColuna.setAtacked(byCorAtual);
             }
             else{
                 int corPecaNaColuna = pecaNaColuna.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
@@ -162,7 +169,7 @@ public class Torre extends Peca{
                         ((Rei) pecaNaColuna).setIsInCheck(true);
                         ((Rei) pecaNaColuna).incPecasAtacantes();
 
-                        for (idFileira = pecaNaColuna.getFileira() + 1; idFileira <= this.getColuna(); idFileira++){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
+                        for (idFileira = pecaNaColuna.getFileira() + 1; idFileira <= this.getFileira(); idFileira++){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
                             casaNaColuna = Tabuleiro.getCasa(super.getColuna(), idFileira); //Casas que estão na mesma fileira.
                             if(corPecaNaColuna == BRANCO){
                                 Tabuleiro.casasDeBloqueioBrancas.add(casaNaColuna);

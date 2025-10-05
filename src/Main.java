@@ -1,3 +1,5 @@
+import Tabuleiro.Casa;
+
 import Tabuleiro.Tabuleiro;
 
 import java.util.Scanner;
@@ -10,9 +12,9 @@ public class Main{
 
         criarCasas();
         preencherCasasToString();
-        lerFEN("r1bq3r/1p3p1k/p3pbp1/7P/3n4/7R/P1B2PP1/2BQ1RK1");
+        lerFEN("7k/8/1p2Q3/pP6/P3K3/8/8/8");
         //lerFEN(FEN_POS_INICIAL);
-        imprimirPreto();
+        imprimirBranco();
 
         while(true) {
             int turno = getJogadas();

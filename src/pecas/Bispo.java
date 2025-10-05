@@ -5,6 +5,8 @@ import Tabuleiro.Tabuleiro;
 
 import java.util.ArrayList;
 
+import static Tabuleiro.Casa.BY_BLACK;
+import static Tabuleiro.Casa.BY_WHITE;
 import static Tabuleiro.Tabuleiro.*;
 import static Tabuleiro.Tabuleiro.COLUNAS;
 import static Tabuleiro.Tabuleiro.FILEIRAS;
@@ -48,8 +50,13 @@ public class Bispo extends Peca{
                         ((Rei) pecaNaDiagonal).setIsInCheck(true);
                         ((Rei) pecaNaDiagonal).incPecasAtacantes();
 
+                        if((idColuna + 1 <= COLUNA_H) && (idFileira + 1 <= OITAVA_FILEIRA)){
+                            Tabuleiro.getCasa(idColuna + 1, idFileira + 1).setAtacked(byCorAtual);  //Adiciona a casa imediatamente a frente como atacked.
+                        }
+
                         idColuna  = pecaNaDiagonal.getColuna()  - 1;
                         idFileira = pecaNaDiagonal.getFileira() - 1;
+
                         for( ; ((idColuna >= this.getColuna()) && (idFileira >= this.getFileira())); idColuna--, idFileira--){
                             casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira.
                             if(corPecaNaDiagonal == BRANCO){
@@ -89,6 +96,10 @@ public class Bispo extends Peca{
                     if(pecaNaDiagonal instanceof Rei){
                         ((Rei) pecaNaDiagonal).setIsInCheck(true);
                         ((Rei) pecaNaDiagonal).incPecasAtacantes();
+
+                        if((idColuna - 1 >= COLUNA_A) && (idFileira + 1 <= OITAVA_FILEIRA)){
+                            Tabuleiro.getCasa(idColuna - 1, idFileira + 1).setAtacked(byCorAtual);  //Adiciona a casa imediatamente a frente como atacked.
+                        }
 
                         idColuna  = pecaNaDiagonal.getColuna()  + 1;
                         idFileira = pecaNaDiagonal.getFileira() - 1;
