@@ -12,7 +12,7 @@ public class Main{
 
         criarCasas();
         preencherCasasToString();
-        lerFEN("7k/8/1p2Q3/pP6/P3K3/8/8/8");
+        lerFEN("r3k1r1/pppppp1p/8/8/8/8/PPPPPP1P/R3K2R");
         //lerFEN(FEN_POS_INICIAL);
         imprimirBranco();
 
@@ -29,17 +29,17 @@ public class Main{
             refreshFiltroCasasLegais();   //Filtra a interseção entre casas legais e as casas de bloqueio.
             uniteCasasLegais();
 
-            System.out.println(getReiPreto().isInCheck());
-            System.out.println(getReiPreto().getPecasAtacantes());
-            for(Casa casa : casasLegaisPecasBrancas){
-                System.out.print(casa.posString() + " ");
-            }
-            System.out.println("Peças brancas ^");
-
-            for(Casa casa : casasLegaisPecasPretas){
-                System.out.print(casa.posString() + " ");
-            }
-            System.out.println("Peças pretas ^");
+//            System.out.println(getReiPreto().isInCheck());
+//            System.out.println(getReiPreto().getPecasAtacantes());
+//            for(Casa casa : casasLegaisPecasBrancas){
+//                System.out.print(casa.posString() + " ");
+//            }
+//            System.out.println("Peças brancas ^");
+//
+//            for(Casa casa : casasLegaisPecasPretas){
+//                System.out.print(casa.posString() + " ");
+//            }
+//            System.out.println("Peças pretas ^");
 
             System.out.println("\n");
 
@@ -87,6 +87,52 @@ public class Main{
                         continue;
                     }
                 }
+
+//========================================= LÓGICA DO ROQUE ========================================================================================
+//==================================================================================================================================================
+                if(brancoesquerda && (colOrigem==COLUNA_E && filOrigem==PRIMEIRA_FILEIRA && colDestino==COLUNA_C && filDestino==PRIMEIRA_FILEIRA)){
+                    // se pode rocar pra direita e tenta efetuar o roque pra direita:
+                    if(Tabuleiro.getCasa(colDestino, filDestino).isAtacked().contains(2)){
+                        //se a casa para qual está tentando rocar está em cheque:
+                        System.out.println("Você não pode efetuar o roque, pois isso deixaria seu rei em cheque.");
+                        continue;
+                    }
+                    //move a torre primeiro mas sem imprimir no tabuleiro, pois será impresso lá embaixo no moverPeca, que será o movimento do rei.
+                    Tabuleiro.moverTorreNoRoque(COLUNA_A, PRIMEIRA_FILEIRA, COLUNA_D, PRIMEIRA_FILEIRA);
+                }
+                if(brancodireita && (colOrigem==COLUNA_E && filOrigem==PRIMEIRA_FILEIRA && colDestino==COLUNA_G && filDestino==PRIMEIRA_FILEIRA)){
+                    // se pode rocar pra direita e tenta efetuar o roque pra direita:
+                    if(Tabuleiro.getCasa(colDestino, filDestino).isAtacked().contains(2)){
+                        //se a casa para qual está tentando rocar está em cheque:
+                        System.out.println("Você não pode efetuar o roque, pois isso deixaria seu rei em cheque.");
+                        continue;
+                    }
+                    //move a torre primeiro mas sem imprimir no tabuleiro, pois será impresso lá embaixo no moverPeca, que será o movimento do rei.
+                    Tabuleiro.moverTorreNoRoque(COLUNA_H, PRIMEIRA_FILEIRA, COLUNA_F, PRIMEIRA_FILEIRA);
+                }
+                if(pretoesquerda && (colOrigem==COLUNA_E && filOrigem==OITAVA_FILEIRA && colDestino==COLUNA_C && filDestino==OITAVA_FILEIRA)){
+                    // se pode rocar pra direita e tenta efetuar o roque pra direita:
+                    if(Tabuleiro.getCasa(colDestino, filDestino).isAtacked().contains(1)){
+                        //se a casa para qual está tentando rocar está em cheque:
+                        System.out.println("Você não pode efetuar o roque, pois isso deixaria seu rei em cheque.");
+                        continue;
+                    }
+                    //move a torre primeiro mas sem imprimir no tabuleiro, pois será impresso lá embaixo no moverPeca, que será o movimento do rei.
+                    Tabuleiro.moverTorreNoRoque(COLUNA_A, OITAVA_FILEIRA, COLUNA_D, OITAVA_FILEIRA);
+                }
+                if(pretodireita && (colOrigem==COLUNA_E && filOrigem==OITAVA_FILEIRA && colDestino==COLUNA_G && filDestino==OITAVA_FILEIRA)){
+                    // se pode rocar pra direita e tenta efetuar o roque pra direita:
+                    if(Tabuleiro.getCasa(colDestino, filDestino).isAtacked().contains(1)){
+                        //se a casa para qual está tentando rocar está em cheque:
+                        System.out.println("Você não pode efetuar o roque, pois isso deixaria seu rei em cheque.");
+                        continue;
+                    }
+                    //move a torre primeiro mas sem imprimir no tabuleiro, pois será impresso lá embaixo no moverPeca, que será o movimento do rei.
+                    Tabuleiro.moverTorreNoRoque(COLUNA_H, OITAVA_FILEIRA, COLUNA_F, OITAVA_FILEIRA);
+                }
+//==================================================================================================================================================
+//==================================================================================================================================================
+
                 Tabuleiro.moverPeca(colOrigem, filOrigem, colDestino, filDestino);
             }
             else{

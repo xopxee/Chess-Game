@@ -13,6 +13,7 @@ public abstract class Peca {
     protected int cor;
     protected Casa casa;
     protected ArrayList<Casa> casasLegais;
+    protected boolean jaMoveu;
 
     protected static final int X = 0;
     protected static final int Y = 1;
@@ -25,6 +26,7 @@ public abstract class Peca {
         this.cor = cor;
         this.casa = casaInicial;    //Setta a casa correspondente como a sua casa.
         casaInicial.setPeca(this);  //Setta a peça da sua casa como si própria.
+        this.jaMoveu = false;
 
         Tabuleiro.getPecasNoTabuleiro().add(this); //Se adiciona no Array List do Tabuleiro.
     }
@@ -35,6 +37,13 @@ public abstract class Peca {
     public void setPos(int coluna, int fileira) {
         this.pos[X] = coluna;
         this.pos[Y] = fileira;
+    }
+
+    public boolean jaMoveu(){
+        return this.jaMoveu;
+    }
+    public void setJaMoveu(boolean move){
+        this.jaMoveu = move;
     }
 
     public int getColuna(){

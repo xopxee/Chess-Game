@@ -484,6 +484,7 @@ public class Tabuleiro {
 
         boolean movimentoLegal = peca.getCasasLegais().contains(casaDestino);
         if (movimentoLegal) { //Se é um movimento legal...
+            peca.setJaMoveu(true);
             peca.setPos(colDestino, filDestino); //Mova a peça para a casa desejada,
             peca.setCasa(casaDestino); //Guarde a casa nova na instância da peça,
 
@@ -559,9 +560,36 @@ public class Tabuleiro {
         }
 
     }
+    public static void moverTorreNoRoque(int colOrigem, int filOrigem, int colDestino, int filDestino) {
+        Scanner sc = new Scanner(System.in);
+
+        Casa casaOrigem = getCasa(colOrigem, filOrigem);
+        Casa casaDestino = getCasa(colDestino, filDestino);
+
+        Peca peca = casaOrigem.getPeca();
+        Peca pecaCasaDestino = casaDestino.getPeca();
+
+        boolean movimentoLegal = peca.getCasasLegais().contains(casaDestino);
+        if (movimentoLegal) { //Se é um movimento legal...
+            peca.setJaMoveu(true);
+            peca.setPos(colDestino, filDestino); //Mova a peça para a casa desejada,
+            peca.setCasa(casaDestino); //Guarde a casa nova na instância da peça,
+
+            casaDestino.setPeca(peca); //Guarde a instância da peça na casa nova.
+
+            casaOrigem.setPeca(null); //Esvazie a casa antiga.
+
+        } else{
+            System.out.println("Movimento ilegal!");
+        }
+
+    }
 
     public static int getJogadas(){
         return jogadas;
+    }
+    public static void increaseDecreaseJogadas(int jogadas){
+        Tabuleiro.jogadas += jogadas;
     }
 
     public static ArrayList<Peca> getPecasNoTabuleiro(){
