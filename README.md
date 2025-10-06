@@ -1,8 +1,8 @@
-# ♟️ Chess Game in Java
+# ♟️ Jogo de Xadrez em Java
 
 Este é um projeto de um jogo de xadrez clássico desenvolvido em Java. O objetivo é criar um motor de xadrez funcional com todas as regras padrão, operando inicialmente via console e, futuramente, com uma interface gráfica.
 
-> **Atenção:** Este projeto está atualmente em fase de desenvolvimento. As funcionalidades principais estão sendo construídas e a versão atual ainda não representa o jogo completo.
+> **Atenção:** Este projeto está atualmente em fase de desenvolvimento. Algumas funcionalidades estão sendo construídas e a versão atual ainda não representa o jogo completo.
 
 -----
 
@@ -20,7 +20,7 @@ Este é um projeto de um jogo de xadrez clássico desenvolvido em Java. O objeti
 
 ## 🚧 Status do Projeto
 
-O projeto encontra-se em construção. A estrutura base do tabuleiro e o movimento das peças foram implementados, mas as regras complexas e condições de vitória ainda não foram finalizadas.
+O projeto encontra-se em fase final de desenvolvimento. Está operando completamente no terminal, e apenas falta programar a mecânica de peças e a interface gráfica, porém está jogável desde que não seja efetuado o movimento de uma peça cravada deixando seu rei em xeque.
 
 ## ✨ Funcionalidades Atuais
 
@@ -33,9 +33,7 @@ O projeto encontra-se em construção. A estrutura base do tabuleiro e o movimen
 
 A lista abaixo detalha as funcionalidades críticas que estão planejadas para as próximas versões.
 
-  - [ ] **Lógica de Jogo Avançada:** Implementar as condições de xeque-mate e empate (stalemate).
   - [ ] **Regras de Xeque:** Programar as restrições de movimento para peças que estão "cravadas" (pinned), ou seja, que não podem se mover pois deixariam o seu rei em xeque.
-  - [ ] **Movimentos Especiais:** Adicionar a lógica para o movimento especial de Roque (castling).
   - [ ] **Interface Gráfica (GUI):** Desenvolver uma interface de usuário visualmente interativa utilizando a biblioteca JavaFX para substituir a atual visualização em console.
 
 ## 🛠️ Tecnologias Utilizadas
