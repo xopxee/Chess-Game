@@ -554,7 +554,7 @@ public class Rei extends Peca {
                 }
             }
             else {
-                possiveisCasasLegaisDireitaCima.add(casaNaDiagonal);pecaPossivelmenteCravadaDireitaCima.casasLegais.clear();
+                possiveisCasasLegaisDireitaCima.add(casaNaDiagonal);
             }
         }
 
