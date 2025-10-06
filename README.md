@@ -1,42 +1,47 @@
-# ♟️ Chess Game in Java
+# ♟️ Jogo de Xadrez em Java
+
+-----
+
+### [🇬🇧/🇺🇸 English Version](https://github.com/xopxee/Chess-Game/blob/main/README_en.md)
+
+-----
 
 Este é um projeto de um jogo de xadrez clássico desenvolvido em Java. O objetivo é criar um motor de xadrez funcional com todas as regras padrão, operando inicialmente via console e, futuramente, com uma interface gráfica.
 
-> **Atenção:** Este projeto está atualmente em fase de desenvolvimento. As funcionalidades principais estão sendo construídas e a versão atual ainda não representa o jogo completo.
+> **Atenção:** Este projeto está atualmente em fase de desenvolvimento. Algumas funcionalidades estão sendo construídas e a versão atual ainda não representa o jogo completo.
 
 -----
 
 ## 📜 Sumário
 
-  * Status do Projeto
-  * Funcionalidades Atuais
-  * Roadmap e Próximos Passos
-  * Tecnologias Utilizadas
-  * Como Executar o Projeto
-  * Estrutura do Projeto
-  * Licença
+* Status do Projeto
+* Funcionalidades Atuais
+* Roadmap e Próximos Passos
+* Tecnologias Utilizadas
+* Como Executar o Projeto
+* Estrutura do Projeto
+* Licença
 
 -----
 
 ## 🚧 Status do Projeto
 
-O projeto encontra-se em construção. A estrutura base do tabuleiro e o movimento das peças foram implementados, mas as regras complexas e condições de vitória ainda não foram finalizadas.
+O projeto encontra-se em fase final de desenvolvimento. Está operando completamente no terminal, e apenas falta a implementação da interface gráfica para que ele esteja completo.
 
 ## ✨ Funcionalidades Atuais
 
-  * **Estrutura de Tabuleiro:** Representação completa de um tabuleiro de xadrez 8x8.
-  * **Design Orientado a Objetos:** Cada peça (Peão, Torre, Cavalo, Bispo, Rainha, Rei) é modelada como uma classe distinta, herdando de uma classe base `Peca`, o que promove a reutilização e manutenção do código.
-  * **Movimentação Básica:** Implementação da lógica de movimento e captura para todas as peças, de acordo com suas regras fundamentais.
-  * **Interface de Console:** Exibição do estado atual do tabuleiro no terminal para visualização do jogo.
+* **Estrutura de Tabuleiro:** Representação completa de um tabuleiro de xadrez 8x8.
+* **Design Orientado a Objetos:** Cada peça (Peão, Torre, Cavalo, Bispo, Rainha, Rei) é modelada como uma classe distinta, herdando de uma classe base `Peca`, o que promove a reutilização e manutenção do código.
+* **Movimentação Completa:** Lógica de movimento e captura para todas as peças, de acordo com suas regras fundamentais.
+* **Regras Complexas:** O jogo conta com regras avançadas como en passant, roque, xeque, peças cravadas.
+* **Condições de Vitória ou Empate:** Xeque-Mate, Empate por afogamento, Derrota por desistência.
+* **Interface de Console:** Exibição do estado atual do tabuleiro no terminal para visualização do jogo.
 
 ## 🗺️ Roadmap e Próximos Passos
 
 A lista abaixo detalha as funcionalidades críticas que estão planejadas para as próximas versões.
 
-  - [ ] **Lógica de Jogo Avançada:** Implementar as condições de xeque-mate e empate (stalemate).
-  - [ ] **Regras de Xeque:** Programar as restrições de movimento para peças que estão "cravadas" (pinned), ou seja, que não podem se mover pois deixariam o seu rei em xeque.
-  - [ ] **Movimentos Especiais:** Adicionar a lógica para o movimento especial de Roque (castling).
-  - [ ] **Interface Gráfica (GUI):** Desenvolver uma interface de usuário visualmente interativa utilizando a biblioteca JavaFX para substituir a atual visualização em console.
+- [ ] **Interface Gráfica (GUI):** Desenvolver uma interface de usuário visualmente interativa utilizando a biblioteca JavaFX para substituir a atual visualização em console.
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -103,10 +108,13 @@ Chess-Game/
 │   │   └── Torre.java
 │   └── Main.java
 ├── .gitignore
+├── ChessGame.iml
 ├── LICENSE
-├── Prototipo Xadrez.iml
-└── README.md
+├── README.md
+└── README_en.md
 ```
+
+###[📂Diagrama UML](https://lucid.app/lucidchart/95e617d8-9ed0-4962-9897-b22b88b38569/edit?beaconFlowId=1853CEFB36C7CF9A&invitationId=inv_1e47aab7-1f42-41f4-a381-2b2e6b5ff430&page=HWEp-vi-RSFO#)
 
 ## 📄 Licença
 
