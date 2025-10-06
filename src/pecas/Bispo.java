@@ -39,6 +39,7 @@ public class Bispo extends Peca{
             if(pecaNaDiagonal == null){
                 casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaDiagonal);
+                casaNaDiagonal.setAtacked(byCorAtual);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
@@ -68,6 +69,7 @@ public class Bispo extends Peca{
                         }
                     }
                 }
+                casaNaDiagonal.setAtacked(byCorAtual);
                 break;  //Caminho está bloqueado.
             }
         }
@@ -86,6 +88,7 @@ public class Bispo extends Peca{
             if(pecaNaDiagonal == null){
                 casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaDiagonal);
+                casaNaDiagonal.setAtacked(byCorAtual);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
@@ -114,6 +117,7 @@ public class Bispo extends Peca{
                         }
                     }
                 }
+                casaNaDiagonal.setAtacked(byCorAtual);
                 break;  //Caminho está bloqueado.
             }
         }
@@ -132,6 +136,7 @@ public class Bispo extends Peca{
             if(pecaNaDiagonal == null){
                 casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaDiagonal);
+                casaNaDiagonal.setAtacked(byCorAtual);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
@@ -142,6 +147,10 @@ public class Bispo extends Peca{
                     if(pecaNaDiagonal instanceof Rei){
                         ((Rei) pecaNaDiagonal).setIsInCheck(true);
                         ((Rei) pecaNaDiagonal).incPecasAtacantes();
+
+                        if((idColuna - 1 >= COLUNA_A) && (idFileira - 1 >= PRIMEIRA_FILEIRA)){
+                            Tabuleiro.getCasa(idColuna - 1, idFileira - 1).setAtacked(byCorAtual);  //Adiciona a casa imediatamente a frente como atacked.
+                        }
 
                         idColuna  = pecaNaDiagonal.getColuna()  + 1;
                         idFileira = pecaNaDiagonal.getFileira() + 1;
@@ -156,6 +165,7 @@ public class Bispo extends Peca{
                         }
                     }
                 }
+                casaNaDiagonal.setAtacked(byCorAtual);
                 break;  //Caminho está bloqueado.
             }
         }
@@ -174,6 +184,7 @@ public class Bispo extends Peca{
             if(pecaNaDiagonal == null){
                 casasLegais.add(casaNaDiagonal); //Caminho está livre, logo é um movimento legal.
                 arrayCorrespondente.add(casaNaDiagonal);
+                casaNaDiagonal.setAtacked(byCorAtual);
             }
             else{
                 int corPecaNaDiagonal = pecaNaDiagonal.getCor(); //Se tem uma peça no caminho, pegue a cor dela.
@@ -184,6 +195,10 @@ public class Bispo extends Peca{
                     if(pecaNaDiagonal instanceof Rei){
                         ((Rei) pecaNaDiagonal).setIsInCheck(true);
                         ((Rei) pecaNaDiagonal).incPecasAtacantes();
+
+                        if((idColuna + 1 <= COLUNA_H) && (idFileira - 1 >= PRIMEIRA_FILEIRA)){
+                            Tabuleiro.getCasa(idColuna + 1, idFileira - 1).setAtacked(byCorAtual);  //Adiciona a casa imediatamente a frente como atacked.
+                        }
 
                         idColuna  = pecaNaDiagonal.getColuna()  - 1;
                         idFileira = pecaNaDiagonal.getFileira() + 1;
@@ -198,6 +213,7 @@ public class Bispo extends Peca{
                         }
                     }
                 }
+                casaNaDiagonal.setAtacked(byCorAtual);
                 break;  //Caminho está bloqueado.
             }
         }

@@ -86,11 +86,11 @@ public class Casa {
         return ""+notacaoColuna+fileiraCorrigida;
     }
 
-    public int isAtacked() {
+    public ArrayList<Integer> isAtacked() {
         return isAtacked;
     }
 
     public void setAtacked(int atacked) {
-        isAtacked = atacked;
+        isAtacked.add(atacked);
     }
 }

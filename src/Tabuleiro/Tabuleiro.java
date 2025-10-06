@@ -143,9 +143,6 @@ public class Tabuleiro {
     public static ArrayList<Casa> casasLegaisPecasBrancas = new ArrayList<>(64);
     public static ArrayList<Casa> casasLegaisPecasPretas = new ArrayList<>(64);
 
-    //public static ArrayList<Casa> casasAtacadasPecasBrancas = new ArrayList<>(64);
-    //public static ArrayList<Casa> casasAtacadasPecasPretas = new ArrayList<>(64);
-
     public static ArrayList<Casa> casasDeBloqueioBrancas = new ArrayList<>(32);
     public static ArrayList<Casa> casasDeBloqueioPretas = new ArrayList<>(32);
 
@@ -445,6 +442,11 @@ public class Tabuleiro {
         }
     }
 
+    public static void refreshCravaPecas(){
+        getReiBranco().cravaPecas();
+        getReiPreto().cravaPecas();
+    }
+
     public static void clearCasasDeBloqueio() {
         casasDeBloqueioBrancas.clear();
         casasDeBloqueioPretas.clear();
@@ -460,10 +462,15 @@ public class Tabuleiro {
         reiPreto.isInCheck();
     }
 
+    public static void refreshIsCheckmated() {
+        reiBranco.isCheckmated();
+        reiPreto.isCheckmated();
+    }
+
     public static void refreshIsAtacked(){
         for (int idColuna = 0; idColuna < COLUNAS; idColuna++) {
             for (int idFileira = 0; idFileira < FILEIRAS; idFileira++) {
-                getCasa(idColuna, idFileira).setAtacked(0);
+                getCasa(idColuna, idFileira).isAtacked().clear();
             }
         }
     }

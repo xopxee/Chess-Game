@@ -14,6 +14,7 @@ public abstract class Peca {
     protected Casa casa;
     protected ArrayList<Casa> casasLegais;
     protected boolean jaMoveu;
+    protected boolean estaCravada;
 
     protected static final int X = 0;
     protected static final int Y = 1;
@@ -27,6 +28,7 @@ public abstract class Peca {
         this.casa = casaInicial;    //Setta a casa correspondente como a sua casa.
         casaInicial.setPeca(this);  //Setta a peça da sua casa como si própria.
         this.jaMoveu = false;
+        this.estaCravada = false;
 
         Tabuleiro.getPecasNoTabuleiro().add(this); //Se adiciona no Array List do Tabuleiro.
     }
@@ -44,6 +46,12 @@ public abstract class Peca {
     }
     public void setJaMoveu(boolean move){
         this.jaMoveu = move;
+    }
+    public boolean estaCravada(){
+        return this.estaCravada;
+    }
+    public void setEstaCravada(boolean esta){
+        this.estaCravada = esta;
     }
 
     public int getColuna(){

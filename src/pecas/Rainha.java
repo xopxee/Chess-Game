@@ -135,6 +135,10 @@ public class Rainha extends Peca{
                         ((Rei) pecaNaColuna).setIsInCheck(true);
                         ((Rei) pecaNaColuna).incPecasAtacantes();
 
+                        if(idFileira + 1 <= OITAVA_FILEIRA){
+                            Tabuleiro.getCasa(super.getColuna(), idFileira + 1).setAtacked(byCorAtual);  //Adiciona a casa imediatamente a frente como atacked.
+                        }
+
                         for (idFileira = pecaNaColuna.getFileira() - 1; idFileira >= this.getFileira(); idFileira--){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
                             casaNaColuna = Tabuleiro.getCasa(super.getColuna(), idFileira); //Casas que estão na mesma fileira.
                             if(corPecaNaColuna == BRANCO){
@@ -173,6 +177,10 @@ public class Rainha extends Peca{
                     if(pecaNaColuna instanceof Rei){
                         ((Rei) pecaNaColuna).setIsInCheck(true);
                         ((Rei) pecaNaColuna).incPecasAtacantes();
+
+                        if(idFileira - 1 >= PRIMEIRA_FILEIRA){
+                            Tabuleiro.getCasa(super.getColuna(), idFileira - 1).setAtacked(byCorAtual);  //Adiciona a casa imediatamente a frente como atacked.
+                        }
 
                         for (idFileira = pecaNaColuna.getFileira() + 1; idFileira <= this.getFileira(); idFileira++){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
                             casaNaColuna = Tabuleiro.getCasa(super.getColuna(), idFileira); //Casas que estão na mesma fileira.
@@ -216,6 +224,10 @@ public class Rainha extends Peca{
                     if(pecaNaDiagonal instanceof Rei){
                         ((Rei) pecaNaDiagonal).setIsInCheck(true);
                         ((Rei) pecaNaDiagonal).incPecasAtacantes();
+
+                        if((idColuna + 1 <= COLUNA_H) && (idFileira + 1 <= OITAVA_FILEIRA)){
+                            Tabuleiro.getCasa(idColuna + 1, idFileira + 1).setAtacked(byCorAtual);  //Adiciona a casa imediatamente a frente como atacked.
+                        }
 
                         idColuna  = pecaNaDiagonal.getColuna()  - 1;
                         idFileira = pecaNaDiagonal.getFileira() - 1;
@@ -262,6 +274,10 @@ public class Rainha extends Peca{
                         ((Rei) pecaNaDiagonal).setIsInCheck(true);
                         ((Rei) pecaNaDiagonal).incPecasAtacantes();
 
+                        if((idColuna - 1 >= COLUNA_A) && (idFileira + 1 <= OITAVA_FILEIRA)){
+                            Tabuleiro.getCasa(idColuna - 1, idFileira + 1).setAtacked(byCorAtual);  //Adiciona a casa imediatamente a frente como atacked.
+                        }
+
                         idColuna  = pecaNaDiagonal.getColuna()  + 1;
                         idFileira = pecaNaDiagonal.getFileira() - 1;
                         for( ; ((idColuna <= this.getColuna()) && (idFileira >= this.getFileira())); idColuna++, idFileira--){
@@ -307,6 +323,10 @@ public class Rainha extends Peca{
                         ((Rei) pecaNaDiagonal).setIsInCheck(true);
                         ((Rei) pecaNaDiagonal).incPecasAtacantes();
 
+                        if((idColuna - 1 >= COLUNA_A) && (idFileira - 1 >= PRIMEIRA_FILEIRA)){
+                            Tabuleiro.getCasa(idColuna - 1, idFileira - 1).setAtacked(byCorAtual);  //Adiciona a casa imediatamente a frente como atacked.
+                        }
+
                         idColuna  = pecaNaDiagonal.getColuna()  + 1;
                         idFileira = pecaNaDiagonal.getFileira() + 1;
                         for( ; ((idColuna <= this.getColuna()) && (idFileira <= this.getFileira())); idColuna++, idFileira++){
@@ -351,6 +371,10 @@ public class Rainha extends Peca{
                     if(pecaNaDiagonal instanceof Rei){
                         ((Rei) pecaNaDiagonal).setIsInCheck(true);
                         ((Rei) pecaNaDiagonal).incPecasAtacantes();
+
+                        if((idColuna + 1 <= COLUNA_H) && (idFileira - 1 >= PRIMEIRA_FILEIRA)){
+                            Tabuleiro.getCasa(idColuna + 1, idFileira - 1).setAtacked(byCorAtual);  //Adiciona a casa imediatamente a frente como atacked.
+                        }
 
                         idColuna  = pecaNaDiagonal.getColuna()  - 1;
                         idFileira = pecaNaDiagonal.getFileira() + 1;
