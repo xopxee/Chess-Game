@@ -2,13 +2,13 @@
 
 -----
 
-### [Portuguese Version 🇵🇹/🇧🇷](https://github.com/xopxee/Chess-Game/blob/main/README.md)
+### [🇬🇧/🇺🇸 English Version](https://github.com/xopxee/Chess-Game/blob/main/README_en.md)
 
 -----
 
-This is a classic chess game project developed in Java. The goal is to create a functional chess engine with all the standard rules, initially operating via console and, in the future, with a graphical interface.
+This is a project for a classic chess game developed in Java. The goal is to create a functional chess engine with all the standard rules, initially operating via console and, in the future, with a graphical interface.
 
-> **Please note:** This project is currently in the development phase. Some features are being built, and the current version does not yet represent the complete game.
+> **Attention:** This project is currently in the development phase. Some features are being built, and the current version does not yet represent the complete game.
 
 -----
 
@@ -26,20 +26,21 @@ This is a classic chess game project developed in Java. The goal is to create a 
 
 ## 🚧 Project Status
 
-The project is in the final stages of development. It is fully operational in the terminal, and only the pinned piece mechanic and the graphical interface remain to be programmed. However, it is playable as long as a pinned piece does not move, leaving its king in check.
+The project is in the final stages of development. It is fully operational in the terminal, and only the implementation of the graphical interface is missing for it to be complete.
 
 ## ✨ Current Features
 
 * **Board Structure:** Complete representation of an 8x8 chessboard.
-* **Object-Oriented Design:** Each piece (Pawn, Rook, Knight, Bishop, Queen, King) is modeled as a distinct class, inheriting from a base `Piece` class, which promotes code reuse and maintainability.
-* **Basic Movement:** Implementation of movement and capture logic for all pieces, according to their fundamental rules.
-* **Console Interface:** Display of the current board state in the terminal for game preview.
+* **Object-Oriented Design:** Each piece (Pawn, Rook, Knight, Bishop, Queen, King) is modeled as a distinct class, inheriting from a base class `Piece`, which promotes code reuse and maintainability.
+* **Complete Movement:** Movement and capture logic for all pieces, according to their fundamental rules.
+* * **Complex Rules:** The game features advanced rules such as en passant, castling, check, and pinned pieces.
+* **Win or Draw Conditions:** Checkmate, Stalemate, Loss by resignation.
+* **Console Interface:** Displays the current board state on the terminal to view the game.
 
 ## 🗺️ Roadmap and Next Steps
 
 The list below details the critical features planned for future releases.
 
-- [ ] **Check Rules:** Program movement restrictions for pinned pieces, meaning they cannot move because they would leave your king in check.
 - [ ] **Graphical User Interface (GUI):** Develop a visually interactive user interface using the JavaFX library to replace the current console view.
 
 ## 🛠️ Technologies Used
@@ -62,29 +63,29 @@ Before you begin, make sure you have the **Java Development Kit (JDK)** (version
 
 1. **Clone the repository:**
 
-    ```bash
-    git clone https://github.com/xopxee/Chess-Game.git
-    ```
+```bash
+git clone https://github.com/xopxee/Chess-Game.git
+```
 
 2. **Navigate to the project directory:**
 
-    ```bash
-    cd Chess-Game
-    ```
+```bash
+cd Chess-Game
+```
 
 3. **Compile the `.java` files from the project root:**
-   The command below will compile all necessary classes, respecting the package structure.
+The command below will compile all necessary classes, respecting the package structure.
 
-    ```bash
-    javac src/**/*.java
-    ```
+```bash
+javac src/**/*.java
+```
 
 4. **Run the application:**
-   After successful compilation, run the main class to start the game in the console.
+After successful compilation, run the main class to start the game in the console.
 
-    ```bash
-    java src/Main
-    ```
+```bash
+java src/Main
+```
 
 ## 📂 Project Structure
 
@@ -104,13 +105,16 @@ Chess-Game/
 │ │ ├── Piece.java
 │ │ ├── Queen.java
 │ │ ├── King.java
-│ │ └── Tower.java
+│ │ └── Rook.java
 │ └── Main.java
 ├── .gitignore
-├── LICENSE
 ├── ChessGame.iml
-└── README.md
+├── LICENSE
+├── README.md
+└── README_en.md
 ```
+
+### [📂Diagram UML](https://lucid.app/lucidchart/95e617d8-9ed0-4962-9897-b22b88b38569/edit?beaconFlowId=1853CEFB36C7CF9A&invitationId=inv_1e47aab7-1f42-41f4-a381-2b2e6b5ff430&page=HWEp-vi-RSFO#)
 
 ## 📄 License
 
