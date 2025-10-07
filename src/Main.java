@@ -5,6 +5,8 @@ import pecas.Peca;
 
 import java.util.Scanner;
 
+import static Tabuleiro.Casa.BY_BLACK;
+import static Tabuleiro.Casa.BY_WHITE;
 import static Tabuleiro.Tabuleiro.*;
 
 public class Main{
@@ -13,8 +15,8 @@ public class Main{
 
         criarCasas();
         preencherCasasToString();
-        //lerFEN("7k/8/8/3q3r/8/5B2/7R/7K");
-        lerFEN(FEN_POS_INICIAL);
+        lerFEN("7k/8/p3Q3/Pp5p/1P5P/8/3K4/8");
+        //lerFEN(FEN_POS_INICIAL);
         imprimirBranco();
 
         System.out.println("Digite 'ajuda' para saber mais sobre os comandos.");
@@ -24,14 +26,13 @@ public class Main{
 
             clearCasasLegais();           //Esvazia as casas legais antes de analisar novamente.
             clearCasasDeBloqueio();       //Esvazia as casas de bloqueio antes de analisar novamente.
-            resetPecasAtacantes();        //Zera a contagem das peças que estão atacando o rei.
-            refreshIsAtacked();
+            clearPecasAtacantes();        //Zera a contagem das peças que estão atacando o rei.
+            clearIsAtacked();
 
             refreshCasasLegais();         //Analisa as casas legais de todas as peças do tabuleiro.
             refreshIsInCheck();           //Verifica se os reis estão em cheque.
             refreshFiltroCasasLegais();   //Filtra a interseção entre casas legais e as casas de bloqueio.
             refreshCravaPecas();
-            refreshIsCheckmated();
             uniteCasasLegais();
 
             boolean brancoesquerda = getReiBranco().canCastleToTheLeft(); // checa se o rei branco pode rocar para esquerda
@@ -151,9 +152,9 @@ public class Main{
             String destino;
             while(true){
                 destino = sc.nextLine();
+                Casa casaOrigem = Tabuleiro.getCasa(colOrigem, filOrigem);
+                Peca pecaCasaOrigem = casaOrigem.getPeca();
                 if (destino.equalsIgnoreCase("?")) {
-                    Casa casaOrigem = Tabuleiro.getCasa(colOrigem, filOrigem);
-                    Peca pecaCasaOrigem = casaOrigem.getPeca();
 
                     if(pecaCasaOrigem != null){
                         System.out.println("["+pecaCasaOrigem.getTipo() + casaOrigem.posString()+"]" + " Movimentos legais: ");
@@ -170,6 +171,19 @@ public class Main{
 
                         continue inicio;
                     }
+                }
+                else if(destino.equalsIgnoreCase("atacada?")){
+
+                    if(casaOrigem.isAtacked().contains(BY_WHITE)){
+                        System.out.println(casaOrigem.posString() + " está sendo atacada por uma peça branca!");
+                    }
+                    if(casaOrigem.isAtacked().contains(BY_BLACK)){
+                        System.out.println(casaOrigem.posString() + " está sendo atacada por uma peça preta!");
+                    }
+                    if(!casaOrigem.isAtacked().contains(BY_WHITE) && !casaOrigem.isAtacked().contains(BY_BLACK)){
+                        System.out.println(casaOrigem.posString() + " não está sendo atacada por ninguém!");
+                    }
+                    continue inicio;
                 }
 
                 if(casasToString.contains(destino)){

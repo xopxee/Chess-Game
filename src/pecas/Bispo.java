@@ -59,12 +59,12 @@ public class Bispo extends Peca{
                         idFileira = pecaNaDiagonal.getFileira() - 1;
 
                         for( ; ((idColuna >= this.getColuna()) && (idFileira >= this.getFileira())); idColuna--, idFileira--){
-                            casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira.
+                            Casa casaNaDiagonalVolta = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira.
                             if(corPecaNaDiagonal == BRANCO){
-                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonalVolta);
                             }
                             else{
-                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonalVolta);
                             }
                         }
                     }
@@ -107,12 +107,12 @@ public class Bispo extends Peca{
                         idColuna  = pecaNaDiagonal.getColuna()  + 1;
                         idFileira = pecaNaDiagonal.getFileira() - 1;
                         for( ; ((idColuna <= this.getColuna()) && (idFileira >= this.getFileira())); idColuna++, idFileira--){
-                            casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira.
+                            Casa casaNaDiagonalVolta = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira.
                             if(corPecaNaDiagonal == BRANCO){
-                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonalVolta);
                             }
                             else{
-                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonalVolta);
                             }
                         }
                     }
@@ -155,12 +155,12 @@ public class Bispo extends Peca{
                         idColuna  = pecaNaDiagonal.getColuna()  + 1;
                         idFileira = pecaNaDiagonal.getFileira() + 1;
                         for( ; ((idColuna <= this.getColuna()) && (idFileira <= this.getFileira())); idColuna++, idFileira++){
-                            casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira e coluna.
+                            Casa casaNaDiagonalVolta = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira e coluna.
                             if(corPecaNaDiagonal == BRANCO){
-                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonalVolta);
                             }
                             else{
-                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonalVolta);
                             }
                         }
                     }
@@ -203,12 +203,12 @@ public class Bispo extends Peca{
                         idColuna  = pecaNaDiagonal.getColuna()  - 1;
                         idFileira = pecaNaDiagonal.getFileira() + 1;
                         for( ; ((idColuna >= this.getColuna()) && (idFileira <= this.getFileira())); idColuna--, idFileira++){
-                            casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira e coluna.
+                            Casa casaNaDiagonalVolta = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira e coluna.
                             if(corPecaNaDiagonal == BRANCO){
-                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonalVolta);
                             }
                             else{
-                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonalVolta);
                             }
                         }
                     }
