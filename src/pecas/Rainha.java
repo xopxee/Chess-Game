@@ -54,12 +54,12 @@ public class Rainha extends Peca{
                         }
 
                         for (idColuna = pecaNaFileira.getColuna() - 1; idColuna >= this.getColuna(); idColuna--){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
-                            casaNaFileira = Tabuleiro.getCasa(idColuna, super.getFileira()); //Casas que estão na mesma fileira.
+                            Casa casaNaFileiraVolta = Tabuleiro.getCasa(idColuna, super.getFileira()); //Casas que estão na mesma fileira.
                             if(corPecaNaFileira == BRANCO){
-                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaFileira);
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaFileiraVolta);
                             }
                             else{
-                                Tabuleiro.casasDeBloqueioPretas.add(casaNaFileira);
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaFileiraVolta);
                             }
                         }
                     }
@@ -97,12 +97,12 @@ public class Rainha extends Peca{
                         }
 
                         for (idColuna = pecaNaFileira.getColuna() + 1; idColuna <= this.getColuna(); idColuna++){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
-                            casaNaFileira = Tabuleiro.getCasa(idColuna, super.getFileira()); //Casas que estão na mesma fileira.
+                            Casa casaNaFileiraVolta = Tabuleiro.getCasa(idColuna, super.getFileira()); //Casas que estão na mesma fileira.
                             if(corPecaNaFileira == BRANCO){
-                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaFileira);
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaFileiraVolta);
                             }
                             else{
-                                Tabuleiro.casasDeBloqueioPretas.add(casaNaFileira);
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaFileiraVolta);
                             }
                         }
                     }
@@ -140,12 +140,12 @@ public class Rainha extends Peca{
                         }
 
                         for (idFileira = pecaNaColuna.getFileira() - 1; idFileira >= this.getFileira(); idFileira--){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
-                            casaNaColuna = Tabuleiro.getCasa(super.getColuna(), idFileira); //Casas que estão na mesma fileira.
+                            Casa casaNaColunaVolta = Tabuleiro.getCasa(super.getColuna(), idFileira); //Casas que estão na mesma fileira.
                             if(corPecaNaColuna == BRANCO){
-                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaColuna);
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaColunaVolta);
                             }
                             else{
-                                Tabuleiro.casasDeBloqueioPretas.add(casaNaColuna);
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaColunaVolta);
                             }
                         }
                     }
@@ -183,16 +183,17 @@ public class Rainha extends Peca{
                         }
 
                         for (idFileira = pecaNaColuna.getFileira() + 1; idFileira <= this.getFileira(); idFileira++){ // Aqui fazemos um loop voltando para pegar as casas de bloqueio.
-                            casaNaColuna = Tabuleiro.getCasa(super.getColuna(), idFileira); //Casas que estão na mesma fileira.
+                            Casa casaNaColunaVolta = Tabuleiro.getCasa(super.getColuna(), idFileira); //Casas que estão na mesma fileira.
                             if(corPecaNaColuna == BRANCO){
-                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaColuna);
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaColunaVolta);
                             }
                             else{
-                                Tabuleiro.casasDeBloqueioPretas.add(casaNaColuna);
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaColunaVolta);
                             }
                         }
                     }
                 }
+                casaNaColuna.setAtacked(byCorAtual);
                 break; //Caminho está bloqueado.
             }
         }
@@ -232,12 +233,12 @@ public class Rainha extends Peca{
                         idColuna  = pecaNaDiagonal.getColuna()  - 1;
                         idFileira = pecaNaDiagonal.getFileira() - 1;
                         for( ; ((idColuna >= this.getColuna()) && (idFileira >= this.getFileira())); idColuna--, idFileira--){
-                            casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira.
+                            Casa casaNaDiagonalVolta = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira.
                             if(corPecaNaDiagonal == BRANCO){
-                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonalVolta);
                             }
                             else{
-                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonalVolta);
                             }
                         }
                     }
@@ -281,12 +282,12 @@ public class Rainha extends Peca{
                         idColuna  = pecaNaDiagonal.getColuna()  + 1;
                         idFileira = pecaNaDiagonal.getFileira() - 1;
                         for( ; ((idColuna <= this.getColuna()) && (idFileira >= this.getFileira())); idColuna++, idFileira--){
-                            casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira.
+                            Casa casaNaDiagonalVolta = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira.
                             if(corPecaNaDiagonal == BRANCO){
-                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonalVolta);
                             }
                             else{
-                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonalVolta);
                             }
                         }
                     }
@@ -330,12 +331,12 @@ public class Rainha extends Peca{
                         idColuna  = pecaNaDiagonal.getColuna()  + 1;
                         idFileira = pecaNaDiagonal.getFileira() + 1;
                         for( ; ((idColuna <= this.getColuna()) && (idFileira <= this.getFileira())); idColuna++, idFileira++){
-                            casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira e coluna.
+                            Casa casaNaDiagonalVolta = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira e coluna.
                             if(corPecaNaDiagonal == BRANCO){
-                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonalVolta);
                             }
                             else{
-                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonalVolta);
                             }
                         }
                     }
@@ -379,12 +380,12 @@ public class Rainha extends Peca{
                         idColuna  = pecaNaDiagonal.getColuna()  - 1;
                         idFileira = pecaNaDiagonal.getFileira() + 1;
                         for( ; ((idColuna >= this.getColuna()) && (idFileira <= this.getFileira())); idColuna--, idFileira++){
-                            casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira e coluna.
+                            Casa casaNaDiagonalVolta = Tabuleiro.getCasa(idColuna, idFileira); //Casas que estão na mesma fileira e coluna.
                             if(corPecaNaDiagonal == BRANCO){
-                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioBrancas.add(casaNaDiagonalVolta);
                             }
                             else{
-                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonal);
+                                Tabuleiro.casasDeBloqueioPretas.add(casaNaDiagonalVolta);
                             }
                         }
                     }

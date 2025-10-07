@@ -5,10 +5,10 @@ import pecas.Peca;
 import java.util.ArrayList;
 
 public class Casa {
-    private int[] pos = new int[2];
+    private int[] pos = new int[2]; // coluna e fileira de cada casa
     private int cor; //0 - branco e 1 - preto
-    private Peca peca;
-    private ArrayList<Integer> isAtacked;
+    private Peca peca; // peça associada a cada casa
+    private ArrayList<Integer> isAtacked; // arraylist que guarda quem tá atacando a casa
     
     public static final int BY_WHITE = 1;
     public static final int BY_BLACK = 2;

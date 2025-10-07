@@ -179,8 +179,11 @@ public class Tabuleiro {
         Tabuleiro.perspectiva = perspectiva;
     }
 
+
+    //Linux
+    /*
     public static void imprimirBranco() {
-        System.out.print("\n\n\n\n");
+        System.out.print("\n");
         for (int idFileira = OITAVA_FILEIRA; idFileira >= PRIMEIRA_FILEIRA; idFileira--) {
             for (int idColuna = COLUNA_A; idColuna <= COLUNA_H; idColuna++) {
                 Peca pecaNaCasa = Tabuleiro.getCasa(idColuna, idFileira).getPeca();
@@ -216,7 +219,7 @@ public class Tabuleiro {
     }
 
     public static void imprimirPreto() {
-        System.out.print("\n\n\n\n");
+        System.out.print("\n");
         for (int idFileira = PRIMEIRA_FILEIRA; idFileira < FILEIRAS; idFileira++) {
             for (int idColuna = COLUNA_H; idColuna >= COLUNA_A; idColuna--) {
                 Peca pecaNaCasa = getCasa(idColuna, idFileira).getPeca();
@@ -248,6 +251,81 @@ public class Tabuleiro {
             System.out.println();
         }
         System.out.println("  h g f e d c b a ");
+        setPerspectiva(PRETO);
+    }
+
+     */
+
+    //Windows
+    public static void imprimirBranco() {
+        System.out.print("\n");
+        for (int idFileira = OITAVA_FILEIRA; idFileira >= PRIMEIRA_FILEIRA; idFileira--) {
+            for (int idColuna = COLUNA_A; idColuna <= COLUNA_H; idColuna++) {
+                Peca pecaNaCasa = Tabuleiro.getCasa(idColuna, idFileira).getPeca();
+
+                if(idColuna == COLUNA_A) {
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print((idFileira + 1) + "[" + charPeca + "|");
+                    } else {
+                        System.out.print((idFileira + 1) + "[ㅤ|");
+                    }
+                } else if (idColuna == COLUNA_H) {
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print(charPeca + "]");
+                    } else {
+                        System.out.print("ㅤ]");
+                    }
+                }
+                else{
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print(charPeca + "|");
+                    } else {
+                        System.out.print("ㅤ|");
+                    }
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("  aㅤbㅤcㅤdㅤeㅤfㅤgㅤh ");
+        setPerspectiva(BRANCO);
+    }
+
+    public static void imprimirPreto() {
+        System.out.print("\n");
+        for (int idFileira = PRIMEIRA_FILEIRA; idFileira < FILEIRAS; idFileira++) {
+            for (int idColuna = COLUNA_H; idColuna >= COLUNA_A; idColuna--) {
+                Peca pecaNaCasa = getCasa(idColuna, idFileira).getPeca();
+
+                if(idColuna == COLUNA_H) {
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print((idFileira + 1) + "[" + charPeca + "|");
+                    } else {
+                        System.out.print((idFileira + 1) + "[ㅤ|");
+                    }
+                } else if (idColuna == COLUNA_A) {
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print(charPeca + "]");
+                    } else {
+                        System.out.print("ㅤ]");
+                    }
+                }
+                else{
+                    if (pecaNaCasa != null) {
+                        char charPeca = pecaNaCasa.getTipo();
+                        System.out.print(charPeca + "|");
+                    } else {
+                        System.out.print("ㅤ|");
+                    }
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("  hㅤgㅤfㅤeㅤdㅤcㅤbㅤa ");
         setPerspectiva(PRETO);
     }
 
@@ -467,7 +545,7 @@ public class Tabuleiro {
         reiPreto.isCheckmated();
     }
 
-    public static void refreshIsAtacked(){
+    public static void clearIsAtacked(){
         for (int idColuna = 0; idColuna < COLUNAS; idColuna++) {
             for (int idFileira = 0; idFileira < FILEIRAS; idFileira++) {
                 getCasa(idColuna, idFileira).isAtacked().clear();
@@ -475,7 +553,7 @@ public class Tabuleiro {
         }
     }
 
-    public static void resetPecasAtacantes() {
+    public static void clearPecasAtacantes() {
         reiBranco.setPecasAtacantes(0);
         reiPreto.setPecasAtacantes(0);
     }
@@ -494,6 +572,8 @@ public class Tabuleiro {
             peca.setJaMoveu(true);
             peca.setPos(colDestino, filDestino); //Mova a peça para a casa desejada,
             peca.setCasa(casaDestino); //Guarde a casa nova na instância da peça,
+
+            pecasNoTabuleiro.remove(pecaCasaDestino);
 
             casaDestino.setPeca(peca); //Guarde a instância da peça na casa nova.
 

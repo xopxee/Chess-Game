@@ -538,7 +538,7 @@ public class Rei extends Peca {
                                         pecaPossivelmenteCravadaDireitaCima.casasLegais.addAll(possiveisCasasLegaisDireitaCima); // adiciona as casas vazias na mesma fileira
                                         pecaPossivelmenteCravadaDireitaCima.casasLegais.add(casaNaDiagonal); // adiciona a casa da peça atacante
                                     } else {
-                                        pecaPossivelmenteCravadaDireita.casasLegais.clear(); // da clear nas casas legais. A peça não pode se mover
+                                        pecaPossivelmenteCravadaDireitaCima.casasLegais.clear(); // da clear nas casas legais. A peça não pode se mover
                                     }
                                 }
                             }
