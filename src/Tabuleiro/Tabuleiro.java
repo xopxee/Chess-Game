@@ -181,7 +181,7 @@ public class Tabuleiro {
 
 
     //Linux
-    /*
+
     public static void imprimirBranco() {
         System.out.print("\n");
         for (int idFileira = OITAVA_FILEIRA; idFileira >= PRIMEIRA_FILEIRA; idFileira--) {
@@ -254,9 +254,8 @@ public class Tabuleiro {
         setPerspectiva(PRETO);
     }
 
-     */
-
     //Windows
+    /*
     public static void imprimirBranco() {
         System.out.print("\n");
         for (int idFileira = OITAVA_FILEIRA; idFileira >= PRIMEIRA_FILEIRA; idFileira--) {
@@ -328,6 +327,8 @@ public class Tabuleiro {
         System.out.println("  hㅤgㅤfㅤeㅤdㅤcㅤbㅤa ");
         setPerspectiva(PRETO);
     }
+
+     */
 
     public static void imprimirCorAtual(){
         if(getPerspectiva() == BRANCO){

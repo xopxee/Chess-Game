@@ -250,13 +250,11 @@ public class Rei extends Peca {
                 if(casaNaFileira.getPeca() != null){
                     return false; // se a casa não está nula, não pode rocar
                 }
-                else{
-                    if(peca instanceof Torre && peca.getCor()==super.getCor()){ // se houver peça na casa, for uma torre da mesma cor do rei, pode rocar.
-                        super.casasLegais.add(Tabuleiro.getCasa(COLUNA_C, super.getFileira()));
-                        peca.casasLegais.add(Tabuleiro.getCasa(COLUNA_D, super.getFileira()));
-                        return true;
-                    }
-                }
+            }
+            if(peca instanceof Torre && peca.getCor()==super.getCor()){ // se houver peça na casa, for uma torre da mesma cor do rei, pode rocar.
+                super.casasLegais.add(Tabuleiro.getCasa(COLUNA_C, super.getFileira()));
+                peca.casasLegais.add(Tabuleiro.getCasa(COLUNA_D, super.getFileira()));
+                return true;
             }
             return false;
         }
@@ -276,13 +274,11 @@ public class Rei extends Peca {
                 if(casaNaFileira.getPeca() != null){
                     return false; // se a casa não está nula, não pode rocar
                 }
-                else{
-                    if(peca instanceof Torre && peca.getCor()==super.getCor()){ // se houver peça na casa, for uma torre da mesma cor do rei, pode rocar.
-                        super.casasLegais.add(Tabuleiro.getCasa(COLUNA_G, super.getFileira()));
-                        peca.casasLegais.add(Tabuleiro.getCasa(COLUNA_F, super.getFileira()));
-                        return true;
-                    }
-                }
+            }
+            if(peca instanceof Torre && peca.getCor()==super.getCor()){ // se houver peça na casa, for uma torre da mesma cor do rei, pode rocar.
+                super.casasLegais.add(Tabuleiro.getCasa(COLUNA_G, super.getFileira()));
+                peca.casasLegais.add(Tabuleiro.getCasa(COLUNA_F, super.getFileira()));
+                return true;
             }
             return false;
         }
@@ -589,7 +585,7 @@ public class Rei extends Peca {
                                         pecaPossivelmenteCravadaEsquerdaCima.casasLegais.addAll(possiveisCasasLegaisEsquerdaCima); // adiciona as casas vazias na mesma fileira
                                         pecaPossivelmenteCravadaEsquerdaCima.casasLegais.add(casaNaDiagonal); // adiciona a casa da peça atacante
                                     } else {
-                                        pecaPossivelmenteCravadaEsquerda.casasLegais.clear(); // da clear nas casas legais. A peça não pode se mover
+                                        pecaPossivelmenteCravadaEsquerdaCima.casasLegais.clear(); // da clear nas casas legais. A peça não pode se mover
                                     }
                                 }
                             }
@@ -640,7 +636,7 @@ public class Rei extends Peca {
                                         pecaPossivelmenteCravadaDireitaBaixo.casasLegais.addAll(possiveisCasasLegaisDireitaBaixo); // adiciona as casas vazias na mesma fileira
                                         pecaPossivelmenteCravadaDireitaBaixo.casasLegais.add(casaNaDiagonal); // adiciona a casa da peça atacante
                                     } else {
-                                        pecaPossivelmenteCravadaDireita.casasLegais.clear(); // da clear nas casas legais. A peça não pode se mover
+                                        pecaPossivelmenteCravadaDireitaBaixo.casasLegais.clear(); // da clear nas casas legais. A peça não pode se mover
                                     }
                                 }
                             }
@@ -691,7 +687,7 @@ public class Rei extends Peca {
                                         pecaPossivelmenteCravadaEsquerdaBaixo.casasLegais.addAll(possiveisCasasLegaisEsquerdaBaixo); // adiciona as casas vazias na mesma fileira
                                         pecaPossivelmenteCravadaEsquerdaBaixo.casasLegais.add(casaNaDiagonal); // adiciona a casa da peça atacante
                                     } else {
-                                        pecaPossivelmenteCravadaEsquerda.casasLegais.clear(); // da clear nas casas legais. A peça não pode se mover
+                                        pecaPossivelmenteCravadaEsquerdaBaixo.casasLegais.clear(); // da clear nas casas legais. A peça não pode se mover
                                     }
                                 }
                             }
