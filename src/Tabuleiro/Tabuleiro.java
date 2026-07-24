@@ -696,5 +696,9 @@ public class Tabuleiro {
     public static Rei getReiBranco() {
         return reiBranco;
     }
+
+    public static boolean dentroTabuleiro(int idColuna, int idFileira) {
+        return idColuna >= 0 && idColuna < COLUNAS && idFileira >= 0 && idFileira < FILEIRAS;
+    }
 }
 

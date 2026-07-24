@@ -2,6 +2,9 @@ package pecas;
 
 import Tabuleiro.Casa;
 import Tabuleiro.Tabuleiro;
+import Tabuleiro.Pos;
+import Tabuleiro.BoardIterator;
+import Tabuleiro.Dir;
 
 import java.util.ArrayList;
 
@@ -19,6 +22,18 @@ public class Rainha extends Peca{
 
     @Override
     public void setCasasLegais() {
+        casasLegais.clear();
+
+        Pos currentPos = getPos();
+        Dir[] dirs = new Dir[]{N, E, S, W, NE, SE, SW, NW};
+
+        for(Dir dir : dirs) {
+            analisarDirecao(new BoardIterator(currentPos, dir));
+        }
+    }
+
+
+    public void setCasasLegais1() {
         super.casasLegais.clear();
 
         ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasLegaisPecasBrancas : casasLegaisPecasPretas;

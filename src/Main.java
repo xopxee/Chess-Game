@@ -15,8 +15,22 @@ public class Main{
 
         criarCasas();
         preencherCasasToString();
-        lerFEN("7k/8/p3Q3/Pp5p/1P5P/8/3K4/8");
+        //lerFEN("7k/8/p3Q3/Pp5p/1P5P/8/3K4/8");
+        //lerFEN("k6n/8/P7/8/8/8/8/K7");
+
+        /*
+        TO DO:
+
+        TESTAR SE AS
+        CASAS DE BLOQUEIO
+        AINDA ESTAO FUNCIONANDO
+
+         */
+
         //lerFEN(FEN_POS_INICIAL);
+        //lerFEN("r7/6k1/5q2/8/1p4N1/1P6/1KP5/7r"); //Caso de cheque
+        lerFEN("7k/8/p3Q3/Pp5p/1P5P/8/1K6/8"); //Caso afogamento
+        //lerFEN("6n1/Rn3k2/2r4b/5N2/5Q2/8/1K6/8"); //Caso de cheque duplo
         imprimirBranco();
 
         System.out.println("Digite 'ajuda' para saber mais sobre os comandos.");
