@@ -2,6 +2,7 @@ package pecas;
 
 import Tabuleiro.Casa;
 import Tabuleiro.Tabuleiro;
+import Tabuleiro.Dir;
 
 import java.util.ArrayList;
 
@@ -29,157 +30,38 @@ public class Rei extends Peca {
     @Override
     public void setCasasLegais() {
         super.casasLegais.clear();
-        ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasLegaisPecasBrancas : casasLegaisPecasPretas;
 
+        ArrayList<Casa> arrayCorrespondente = (this.getCor() == BRANCO) ? casasLegaisPecasBrancas : casasLegaisPecasPretas;
         int byCorAtual = (super.getCor() == BRANCO)? BY_WHITE : BY_BLACK;
 
-        // Movimentos para direita
-        int idColuna = super.getColuna() + 1;
-        if (idColuna < 8) {
-            Casa casaNaFileira = Tabuleiro.getCasa(idColuna, super.getFileira());
-            Peca pecaNaFileira = casaNaFileira.getPeca();
+        Dir[] dirs = new Dir[]{N, E, S, W, NE, SE, SW, NW};
 
-            if (pecaNaFileira == null) {
-                super.casasLegais.add(casaNaFileira);
-                arrayCorrespondente.add(casaNaFileira);
-            } else {
-                if (pecaNaFileira.getCor() != super.getCor()) {
-                    super.casasLegais.add(casaNaFileira);
-                    arrayCorrespondente.add(casaNaFileira);
-                }
-            }
-            casaNaFileira.setAtacked(byCorAtual);
+        for(Dir dir : dirs) {
+            analisarCasa(dir, arrayCorrespondente, byCorAtual);
         }
+    }
 
-        // Movimentos para esquerda
-        idColuna = super.getColuna() - 1;
-        if (idColuna >= 0) {
-            Casa casaNaFileira = Tabuleiro.getCasa(idColuna, super.getFileira());
-            Peca pecaNaFileira = casaNaFileira.getPeca();
+    private void analisarCasa(Dir dir, ArrayList<Casa> arrayCorrespondente, int byCorAtual){
+        final int coluna = getColuna() + dir.getHorizontalDir();
+        final int fileira = getFileira() + dir.getVerticalDir();
 
-            if (pecaNaFileira == null) {
-                super.casasLegais.add(casaNaFileira);
-                arrayCorrespondente.add(casaNaFileira);
-            } else {
-                if (pecaNaFileira.getCor() != super.getCor()) {
-                    super.casasLegais.add(casaNaFileira);
-                    arrayCorrespondente.add(casaNaFileira);
-                }
-            }
-            casaNaFileira.setAtacked(byCorAtual);
+        if(!dentroTabuleiro(coluna, fileira))
+            return;
+
+        Casa casaTeste = Tabuleiro.getCasa(coluna, fileira);
+        Peca pecaNaCasa = casaTeste.getPeca();
+
+        if (pecaNaCasa == null) {
+            super.casasLegais.add(casaTeste);
+            arrayCorrespondente.add(casaTeste);
         }
-
-        // Movimentos para cima
-        int idFileira = super.getFileira() + 1;
-        if (idFileira < 8) {
-            Casa casaNaColuna = Tabuleiro.getCasa(super.getColuna(), idFileira);
-            Peca pecaNaColuna = casaNaColuna.getPeca();
-
-            if (pecaNaColuna == null) {
-                super.casasLegais.add(casaNaColuna);
-                arrayCorrespondente.add(casaNaColuna);
-            } else {
-                if (pecaNaColuna.getCor() != super.getCor()) {
-                    super.casasLegais.add(casaNaColuna);
-                    arrayCorrespondente.add(casaNaColuna);
-                }
+        else {
+            if (pecaNaCasa.getCor() != super.getCor()) {
+                super.casasLegais.add(casaTeste);
+                arrayCorrespondente.add(casaTeste);
             }
-            casaNaColuna.setAtacked(byCorAtual);
         }
-
-        // Movimentos para baixo
-        idFileira = super.getFileira() - 1;
-        if (idFileira >= 0) {
-            Casa casaNaColuna = Tabuleiro.getCasa(super.getColuna(), idFileira);
-            Peca pecaNaColuna = casaNaColuna.getPeca();
-
-            if (pecaNaColuna == null) {
-                super.casasLegais.add(casaNaColuna);
-                arrayCorrespondente.add(casaNaColuna);
-            } else {
-                if (pecaNaColuna.getCor() != super.getCor()) {
-                    super.casasLegais.add(casaNaColuna);
-                    arrayCorrespondente.add(casaNaColuna);
-                }
-            }
-            casaNaColuna.setAtacked(byCorAtual);
-        }
-
-        // Movimento para diagonal direita superior
-        idColuna = super.getColuna() + 1;
-        idFileira = super.getFileira() + 1;
-        if (idColuna < 8 && idFileira < 8) {
-            Casa casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira);
-            Peca pecaNaDiagonal = casaNaDiagonal.getPeca();
-
-            if (pecaNaDiagonal == null) {
-                super.casasLegais.add(casaNaDiagonal);
-                arrayCorrespondente.add(casaNaDiagonal);
-            } else {
-                if (pecaNaDiagonal.getCor() != super.getCor()) {
-                    super.casasLegais.add(casaNaDiagonal);
-                    arrayCorrespondente.add(casaNaDiagonal);
-                }
-            }
-            casaNaDiagonal.setAtacked(byCorAtual);
-        }
-
-        // Movimento para diagonal esquerda superior
-        idColuna = super.getColuna() - 1;
-        idFileira = super.getFileira() + 1;
-        if (idColuna >= 0 && idFileira < 8) {
-            Casa casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira);
-            Peca pecaNaDiagonal = casaNaDiagonal.getPeca();
-
-            if (pecaNaDiagonal == null) {
-                super.casasLegais.add(casaNaDiagonal);
-                arrayCorrespondente.add(casaNaDiagonal);
-            } else {
-                if (pecaNaDiagonal.getCor() != super.getCor()) {
-                    super.casasLegais.add(casaNaDiagonal);
-                    arrayCorrespondente.add(casaNaDiagonal);
-                }
-            }
-            casaNaDiagonal.setAtacked(byCorAtual);
-        }
-
-        // Movimento para diagonal esquerda inferior
-        idColuna = super.getColuna() - 1;
-        idFileira = super.getFileira() - 1;
-        if (idColuna >= 0 && idFileira >= 0) {
-            Casa casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira);
-            Peca pecaNaDiagonal = casaNaDiagonal.getPeca();
-
-            if (pecaNaDiagonal == null) {
-                super.casasLegais.add(casaNaDiagonal);
-                arrayCorrespondente.add(casaNaDiagonal);
-            } else {
-                if (pecaNaDiagonal.getCor() != super.getCor()) {
-                    super.casasLegais.add(casaNaDiagonal);
-                    arrayCorrespondente.add(casaNaDiagonal);
-                }
-            }
-            casaNaDiagonal.setAtacked(byCorAtual);
-        }
-
-        // Movimento para diagonal direita inferior
-        idColuna = super.getColuna() + 1;
-        idFileira = super.getFileira() - 1;
-        if (idColuna < 8 && idFileira >= 0) {
-            Casa casaNaDiagonal = Tabuleiro.getCasa(idColuna, idFileira);
-            Peca pecaNaDiagonal = casaNaDiagonal.getPeca();
-
-            if (pecaNaDiagonal == null) {
-                super.casasLegais.add(casaNaDiagonal);
-                arrayCorrespondente.add(casaNaDiagonal);
-            } else {
-                if (pecaNaDiagonal.getCor() != super.getCor()) {
-                    super.casasLegais.add(casaNaDiagonal);
-                    arrayCorrespondente.add(casaNaDiagonal);
-                }
-            }
-            casaNaDiagonal.setAtacked(byCorAtual);
-        }
+        casaTeste.setAtacked(byCorAtual);
     }
 
     @Override

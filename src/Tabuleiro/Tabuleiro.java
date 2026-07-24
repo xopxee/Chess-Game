@@ -182,7 +182,7 @@ public class Tabuleiro {
 
     //Linux
 
-    public static void imprimirBranco() {
+    public static void imprimirBrancoLinux() {
         System.out.print("\n");
         for (int idFileira = OITAVA_FILEIRA; idFileira >= PRIMEIRA_FILEIRA; idFileira--) {
             for (int idColuna = COLUNA_A; idColuna <= COLUNA_H; idColuna++) {
@@ -218,7 +218,7 @@ public class Tabuleiro {
         setPerspectiva(BRANCO);
     }
 
-    public static void imprimirPreto() {
+    public static void imprimirPretoLinux() {
         System.out.print("\n");
         for (int idFileira = PRIMEIRA_FILEIRA; idFileira < FILEIRAS; idFileira++) {
             for (int idColuna = COLUNA_H; idColuna >= COLUNA_A; idColuna--) {
@@ -255,7 +255,6 @@ public class Tabuleiro {
     }
 
     //Windows
-    /*
     public static void imprimirBranco() {
         System.out.print("\n");
         for (int idFileira = OITAVA_FILEIRA; idFileira >= PRIMEIRA_FILEIRA; idFileira--) {
@@ -327,8 +326,6 @@ public class Tabuleiro {
         System.out.println("  hㅤgㅤfㅤeㅤdㅤcㅤbㅤa ");
         setPerspectiva(PRETO);
     }
-
-     */
 
     public static void imprimirCorAtual(){
         if(getPerspectiva() == BRANCO){
@@ -696,6 +693,10 @@ public class Tabuleiro {
     }
     public static Rei getReiBranco() {
         return reiBranco;
+    }
+
+    public static boolean dentroTabuleiro(int idColuna, int idFileira) {
+        return idColuna >= 0 && idColuna < COLUNAS && idFileira >= 0 && idFileira < FILEIRAS;
     }
 }
 
